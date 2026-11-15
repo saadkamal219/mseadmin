@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>অ্যাডমিন ড্যাশবোর্ড | মেসার্স সাদ এন্টারপ্রাইজ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --n: #14243B;
+      --n2: #1f3a63;
+      --g: #D6A64B;
+      --bg: #EEF1F5;
+      --ok: #1a7f4b;
+      --bad: #c0392b;
+      --r: 14px
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0
+    }
+
+    body {
+      font-family: "Hind Siliguri", "Noto Sans Bengali", sans-serif;
+      background: var(--bg);
+      color: #2d3748;
+      line-height: 1.6
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      height: 60px;
+      background: linear-gradient(120deg, var(--n), var(--n2));
+      color: #fff;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, .2)
+    }
+
+    .lg {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600
+    }
+
+    .lg i {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--g);
+      color: var(--n);
+      display: grid;
+      place-items: center;
+      font-style: normal;
+      font-weight: 700
+    }
+
+    header small {
+      color: #c9d3e3;
+      font-size: 13px
+    }
+
+    nav {
+      position: fixed;
+      z-index: 20;
+      display: flex;
+      gap: 4px;
+      background: #fff
+    }
+
+    nav button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 0;
+      background: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font: inherit;
+      color: #4a5568;
+      cursor: pointer;
+      transition: .2s
+    }
+
+    nav button i {
+      font-style: normal;
+      font-size: 18px
+    }
+
+    nav button:hover {
+      background: #f0f2f6
+    }
+
+    nav button.on {
+      background: var(--n);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(20, 36, 59, .3)
+    }
+
+    @media(min-width:900px) {
+      nav {
+        top: 60px;
+        left: 0;
+        bottom: 0;
+        width: 230px;
+        flex-direction: column;
+        padding: 18px 12px;
+        border-right: 1px solid #e1e5eb
+      }
+
+      main {
+        margin-left: 230px
+      }
+    }
+
+    @media(max-width:899px) {
+      nav {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        justify-content: space-around;
+        padding: 6px;
+        border-top: 1px solid #dde2ea;
+        box-shadow: 0 -4px 16px rgba(0, 0, 0, .08)
+      }
+
+      nav button {
+        flex-direction: column;
+        gap: 0;
+        padding: 6px 8px;
+        font-size: 11px;
+        text-align: center;
+        line-height: 1.3
+      }
+
+      main {
+        padding-bottom: 96px !important
+      }
+    }
+
+    main {
+      max-width: 1180px;
+      padding: 22px 20px
+    }
+
+    .tab {
+      display: none
+    }
+
+    .tab.on {
+      display: block;
+      animation: fi .35s
+    }
+
+    @keyframes fi {
+      from {
+        opacity: 0;
+        transform: translateY(8px)
+      }
+    }
+
+    h2 {
+      color: var(--n);
+      margin: 18px 0 10px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    h2:before {
+      content: "";
+      width: 5px;
+      height: 22px;
+      border-radius: 3px;
+      background: var(--g)
+    }
+
+    .warn {
+      background: #fff8e6;
+      border: 1px solid #f0dca6;
+      border-radius: var(--r);
+      padding: 10px 14px;
+      margin-bottom: 18px;
+      font-size: 14px
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 18px
+    }
+
+    .k {
+      background: #fff;
+      border-radius: var(--r);
+      padding: 16px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      box-shadow: 0 2px 12px rgba(20, 36, 59, .07);
+      transition: .2s
+    }
+
+    .k:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 22px rgba(20, 36, 59, .12)
+    }
+
+    .k i {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-style: normal;
+      font-size: 22px;
+      flex: none
+    }
+
+    .k small {
+      color: #718096;
+      display: block;
+      font-size: 13px
+    }
+
+    .k b {
+      font-size: 21px;
+      color: var(--n)
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px
+    }
+
+    .pn {
+      background: #fff;
+      border-radius: var(--r);
+      padding: 18px;
+      box-shadow: 0 2px 12px rgba(20, 36, 59, .07)
+    }
+
+    .pn h3 {
+      color: var(--n);
+      font-size: 17px;
+      margin-bottom: 8px
+    }
+
+    .lgd {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      color: #4a5568;
+      margin-top: 6px
+    }
+
+    .lgd i {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      margin-right: 5px;
+      vertical-align: -1px
+    }
+
+    .vb {
+      transform-box: fill-box;
+      transform-origin: bottom;
+      animation: gy .8s ease-out
+    }
+
+    @keyframes gy {
+      from {
+        transform: scaleY(0)
+      }
+    }
+
+    .hb {
+      display: grid;
+      grid-template-columns: minmax(70px, 120px) 1fr auto;
+      gap: 10px;
+      align-items: center;
+      margin: 10px 0;
+      font-size: 14px
+    }
+
+    .hb span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap
+    }
+
+    .bt {
+      background: #edf0f5;
+      border-radius: 8px;
+      height: 16px;
+      overflow: hidden
+    }
+
+    .bf {
+      height: 100%;
+      border-radius: 8px;
+      animation: gw .9s ease-out
+    }
+
+    @keyframes gw {
+      from {
+        width: 0
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+
+      .vb,
+      .bf,
+      .tab.on {
+        animation: none
+      }
+    }
+
+    form {
+      background: #fff;
+      padding: 18px;
+      border-radius: var(--r);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+      align-items: end;
+      box-shadow: 0 2px 12px rgba(20, 36, 59, .07)
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4a5568
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid #d5dbe5;
+      border-radius: 10px;
+      font: inherit;
+      margin-top: 3px;
+      background: #fbfcfd;
+      transition: .2s
+    }
+
+    input:focus,
+    select:focus {
+      outline: 0;
+      border-color: var(--g);
+      box-shadow: 0 0 0 3px rgba(214, 166, 75, .25)
+    }
+
+    .c {
+      background: #fff8e6;
+      border-left: 4px solid var(--g);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 15px
+    }
+
+    .b {
+      font: inherit;
+      padding: 10px 18px;
+      border: 1.5px solid var(--n);
+      background: #fff;
+      color: var(--n);
+      border-radius: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: .2s;
+      font-weight: 500
+    }
+
+    .b:hover {
+      transform: translateY(-1px)
+    }
+
+    .b.p {
+      background: var(--n);
+      color: #fff
+    }
+
+    .b.g {
+      background: var(--g);
+      border-color: var(--g);
+      color: var(--n);
+      font-weight: 600
+    }
+
+    .b.r {
+      border-color: var(--bad);
+      color: var(--bad)
+    }
+
+    .b.s {
+      padding: 3px 12px;
+      font-size: 14px
+    }
+
+    .tw {
+      overflow-x: auto;
+      background: #fff;
+      border-radius: var(--r);
+      box-shadow: 0 2px 12px rgba(20, 36, 59, .07)
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px
+    }
+
+    th,
+    td {
+      padding: 11px 14px;
+      text-align: left;
+      border-bottom: 1px solid #eef0f4;
+      white-space: nowrap
+    }
+
+    th {
+      background: #f4f6fa;
+      color: var(--n);
+      font-weight: 600;
+      font-size: 14px
+    }
+
+    tr:hover td {
+      background: #fafbfd
+    }
+
+    .low {
+      color: var(--bad);
+      font-weight: 700
+    }
+
+    .note {
+      font-size: 14px;
+      color: #718096;
+      margin: 10px 0
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="lg">
+      <img src="smalllogo.png" alt="" width="48" height="48">
+      মেসার্স সাদ এন্টারপ্রাইজ</div>
+    <div><small id="sy"></small> · <small id="stat"></small></div>
+  </header>
+  <nav id="nv"><button data-t="d" class="on"><i>📊</i><span>ড্যাশবোর্ড</span></button><button
+      data-t="p"><i>📦</i><span>পণ্য</span></button><button data-t="s"><i>🧾</i><span>বিক্রয়</span></button><button
+      data-t="v"><i>💰</i><span>বাকি আদায়</span></button><button data-t="k"><i>☁️</i><span>ব্যাকআপ</span></button>
+  </nav>
+  <main>
+    <div class="warn">এই পেজের তথ্য শুধু এই ব্রাউজারে সংরক্ষিত হয়। কোনো সার্ভার বা পাসওয়ার্ড নেই। নিয়মিত "ব্যাকআপ"
+      ট্যাব থেকে ফাইল নামিয়ে রাখুন এবং এই ফাইল পাবলিক ওয়েবসাইটে আপলোড করবেন না।</div>
+
+    <section class="tab on" id="d">
+      <div class="cards" id="cd"></div>
+      <div class="grid2">
+        <div class="pn">
+          <h3>গত ৬ মাসের বিক্রয় ও আদায়</h3>
+          <div id="ch1"></div>
+        </div>
+        <div class="pn">
+          <h3>সেরা ৫ পণ্য (মোট বিক্রয়)</h3>
+          <div id="ch2"></div>
+        </div>
+      </div>
+      <div class="pn" style="margin-bottom:16px">
+        <h3>সর্বোচ্চ বাকি থাকা ক্রেতা</h3>
+        <div id="ch3"></div>
+      </div>
+      <h2>কম মজুত পণ্য</h2>
+      <div class="tw">
+        <table id="lw"></table>
+      </div>
+    </section>
+
+    <section class="tab" id="p">
+      <h2>পণ্য যোগ / হালনাগাদ</h2>
+      <form id="pf"><input type="hidden" name="id"><label>পণ্যের নাম *<input name="name" required
+            placeholder="যেমন: পিসিসি সিমেন্ট"></label>
+        <label>বিভাগ *<select name="cat">
+            <option>সিমেন্ট</option>
+            <option>রড</option>
+            <option>ইট</option>
+            <option>বালু</option>
+            <option>পাথর</option>
+            <option>খোয়া</option>
+            <option>অন্যান্য</option>
+          </select></label>
+        <label>কোম্পানি/ব্র্যান্ড<input name="brand"></label><label>একক<input name="unit" value="ব্যাগ"></label>
+        <label>একক মূল্য (৳) *<input name="price" type="number" min="0" step="any" required></label><label>মজুত *<input
+            name="stock" type="number" min="0" step="any" required></label>
+        <label>কম মজুতের সীমা<input name="min" type="number" min="0" value="10"></label><button class="b g" id="pb">পণ্য
+          যোগ করুন</button>
+      </form>
+      <div class="tw">
+        <table id="pt"></table>
+      </div>
+    </section>
+
+    <section class="tab" id="s">
+      <h2>নতুন বিক্রয়</h2>
+      <form id="sf"><label>তারিখ *<input name="date" type="date" required></label><label>ক্রেতার নাম *<input name="cust"
+            required list="cl" autocomplete="off"></label><label>মোবাইল<input name="ph"></label><datalist
+          id="cl"></datalist>
+        <label>পণ্য *<select name="pid" required></select></label><label>পরিমাণ *<input name="qty" type="number" min="0"
+            step="any" required></label><label>একক মূল্য (৳) *<input name="price" type="number" min="0" step="any"
+            required></label>
+        <label>এখন পরিশোধ (৳)<input name="paid" type="number" min="0" step="any" value="0"></label>
+        <div class="c" id="sb" style="grid-column:1/-1"></div><button class="b g">বিক্রয় সংরক্ষণ</button>
+      </form>
+      <label style="display:block;margin-bottom:8px">মাস অনুযায়ী দেখুন<input type="month" id="fm"
+          style="max-width:200px"></label>
+      <div class="tw">
+        <table id="st"></table>
+      </div>
+    </section>
+
+    <section class="tab" id="v">
+      <h2>বাকি জমা (অর্ডার ছাড়া)</h2>
+      <form id="vf"><label>তারিখ *<input name="date" type="date" required></label><label>ক্রেতার নাম *<input name="cust"
+            required list="cl" autocomplete="off"></label><label>মোবাইল<input name="ph"></label>
+        <label>জমার পরিমাণ (৳) *<input name="amount" type="number" min="0.01" step="any"
+            required></label><label>মন্তব্য<input name="note" placeholder="যেমন: নগদ / বিকাশ"></label>
+        <div class="c" id="vb" style="grid-column:1/-1"></div><button class="b g">বাকি জমা নিন</button>
+      </form>
+      <h2>বাকি থাকা ক্রেতা</h2>
+      <div class="tw">
+        <table id="dt"></table>
+      </div>
+      <h2>জমার রেকর্ড</h2>
+      <div class="tw">
+        <table id="vt"></table>
+      </div>
+    </section>
+    <section class="tab" id="k">
+      <h2>গুগল শিট সংযোগ</h2>
+      <form id="gf"><label style="grid-column:1/-1">Web App URL<input name="url" type="url"
+            placeholder="https://script.google.com/macros/s/.../exec"></label><label>গোপন কোড (Code.gs-এর TOKEN)<input
+            name="token" type="password" autocomplete="off"></label>
+        <button class="b g">সংযোগ ও সিঙ্ক চালু করুন</button><button type="button" class="b" id="gp">এখনই সিঙ্ক
+          করুন</button><button type="button" class="b" id="gg">শিট থেকে আনুন</button><button type="button" class="b r"
+          id="gx">সংযোগ বিচ্ছিন্ন করুন</button>
+        <div class="c" style="grid-column:1/-1">চালু থাকলে প্রতিটি পরিবর্তনের পর কয়েক সেকেন্ডে স্বয়ংক্রিয়ভাবে শিটে
+          সংরক্ষিত হবে। ইন্টারনেট না থাকলে তথ্য এই ডিভাইসে থাকবে এবং পরে সিঙ্ক হবে। সেটআপের নিয়ম <b>Code.gs</b> ফাইলের
+          সঙ্গের নির্দেশনায় আছে।</div>
+      </form>
+      <h2>ব্যাকআপ ও এক্সপোর্ট</h2>
+      <p class="note">ফাইল নামানোর পর নিরাপদ জায়গায় (গুগল ড্রাইভ, পেনড্রাইভ) রাখুন।</p>
+      <p><button class="b p" id="eb">ব্যাকআপ নামান (JSON)</button> <label class="b" style="display:inline-block">ব্যাকআপ
+          ফেরত আনুন<input type="file" id="ib" accept=".json" hidden></label>
+        <button class="b" id="es">বিক্রয় রেকর্ড (CSV)</button> <button class="b" id="ev">বাকি জমার রেকর্ড
+          (CSV)</button> <button class="b" id="ep">পণ্যের তালিকা (products.json)</button>
+      </p>
+      <p class="note">products.json ওয়েবসাইটের পণ্য পেজে ব্যবহারের জন্য: পণ্যের নাম, বিভাগ, ব্র্যান্ড ও একক থাকে (মজুত
+        সংখ্যা ছাড়া)।</p>
+    </section>
+  </main>
+  <script>
+    const K = "saad_admin_v1", $ = s => document.querySelector(s), esc = t => String(t ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    const bn = n => (+n || 0).toLocaleString("bn-BD", { maximumFractionDigits: 2 }), tk = n => "৳ " + bn(n);
+    let D = { p: [], s: [], pay: [] }; try { D = JSON.parse(localStorage.getItem(K)) || D } catch (e) { } D.pay = D.pay || [];
+    const save = () => { try { localStorage.setItem(K, JSON.stringify(D)) } catch (e) { alert("তথ্য সংরক্ষণ করা যায়নি। ব্রাউজারের স্টোরেজ বন্ধ থাকতে পারে।") } render(); queue() };
+    const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6), today = () => new Date().toISOString().slice(0, 10);
+    const dl = (n, t, m) => { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([t], { type: m })); a.download = n; a.click() };
+    document.querySelectorAll("#nv button").forEach(b => b.onclick = () => { document.querySelectorAll("#nv button,.tab").forEach(x => x.classList.remove("on")); b.classList.add("on"); $("#" + b.dataset.t).classList.add("on") });
+    const key = (n, p) => (p || n || "").trim().toLowerCase();
+    function led() {
+      const E = D.s.map(x => ({ ...x, k: "s" })).concat(D.pay.map(x => ({ ...x, k: "p" }))).sort((a, b) => a.date.localeCompare(b.date) || (a.t || 0) - (b.t || 0)), B = {};
+      E.forEach(x => { const q = key(x.cust, x.ph); x.prev = B[q] ? B[q].v : 0; x.after = x.prev + (x.k === "s" ? x.total - x.paid : -x.amount); B[q] = { v: x.after, n: x.cust, ph: x.ph } }); return { E, B }
+    }
+    const dueOf = (n, p) => { const b = led().B[key(n, p)]; return b ? b.v : 0 };
+    function fillPh(f) { const n = f.cust.value.trim(); if (!f.ph.value) { const b = Object.values(led().B).find(x => x.n === n && x.ph); if (b) f.ph.value = b.ph } }
+    function prevS() {
+      const f = $("#sf"), pd = dueOf(f.cust.value, f.ph.value.trim()), t = (+f.qty.value || 0) * (+f.price.value || 0), pa = +f.paid.value || 0;
+      $("#sb").innerHTML = `পূর্বের বাকি <b>${tk(pd)}</b> + নতুন মোট <b>${tk(t)}</b> = মোট পরিশোধযোগ্য <b>${tk(pd + t)}</b> · এখন বাকি থাকবে <b class="low">${tk(pd + t - pa)}</b>`
+    }
+    function prevV() { const f = $("#vf"); $("#vb").innerHTML = `বর্তমান বাকি: <b class="low">${tk(dueOf(f.cust.value, f.ph.value.trim()))}</b>` }
+    const sh = v => v >= 100000 ? bn(+(v / 100000).toFixed(1)) + "ল" : v >= 1000 ? bn(+(v / 1000).toFixed(1)) + "হা" : bn(v);
+    const hbar = (a, c) => { if (!a.length) return '<p class="note">তথ্য যোগ হলে এখানে চার্ট দেখা যাবে।</p>'; const mx = Math.max(...a.map(x => x[1]), 1); return a.map(([n, v]) => `<div class="hb"><span title="${esc(n)}">${esc(n)}</span><div class="bt"><div class="bf" style="width:${v / mx * 100}%;background:${c}"></div></div><b>${tk(v)}</b></div>`).join("") };
+    function charts(B) {
+      const ms = []; for (let i = 5; i >= 0; i--) { const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() - i); ms.push(d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0")) }
+      const sum = (a, k, m) => a.filter(x => x.date.startsWith(m)).reduce((t, x) => t + x[k], 0), sal = ms.map(m => sum(D.s, "total", m)), col = ms.map(m => sum(D.s, "paid", m) + sum(D.pay, "amount", m)), mx = Math.max(1, ...sal, ...col);
+      if (!D.s.length && !D.pay.length) $("#ch1").innerHTML = '<p class="note">বিক্রয় যোগ হলে এখানে বার চার্ট দেখা যাবে।</p>';
+      else {
+        let g = '<line x1="10" x2="470" y1="170" y2="170" stroke="#d5dbe5"/>';
+        ms.forEach((m, i) => {
+          const x = 22 + i * 76, h1 = sal[i] / mx * 140, h2 = col[i] / mx * 140;
+          g += `<rect class="vb" x="${x}" y="${170 - h1}" width="27" height="${h1}" rx="5" fill="#14243B"/><rect class="vb" x="${x + 31}" y="${170 - h2}" width="27" height="${h2}" rx="5" fill="#D6A64B"/>`;
+          if (sal[i]) g += `<text x="${x + 13}" y="${165 - h1}" font-size="10" text-anchor="middle" fill="#14243B">${sh(sal[i])}</text>`;
+          if (col[i]) g += `<text x="${x + 44}" y="${165 - h2}" font-size="10" text-anchor="middle" fill="#8a6414">${sh(col[i])}</text>`;
+          g += `<text x="${x + 29}" y="190" font-size="12" text-anchor="middle" fill="#4a5568">${new Date(m + "-01").toLocaleDateString("bn-BD", { month: "short" })}</text>`
+        });
+        $("#ch1").innerHTML = `<svg viewBox="0 0 480 200" width="100%" role="img" aria-label="মাসভিত্তিক বিক্রয় ও আদায়ের বার চার্ট" style="font-family:inherit">${g}</svg><div class="lgd"><span><i style="background:#14243B"></i>বিক্রয়</span><span><i style="background:#D6A64B"></i>আদায় (নগদ পরিশোধ + বাকি জমা)</span><span>হা = হাজার, ল = লাখ</span></div>`
+      }
+      const pm = {}; D.s.forEach(x => pm[x.pname] = (pm[x.pname] || 0) + x.total);
+      $("#ch2").innerHTML = hbar(Object.entries(pm).sort((a, b) => b[1] - a[1]).slice(0, 5), "linear-gradient(90deg,#14243B,#2f5489)");
+      $("#ch3").innerHTML = hbar(Object.values(B).filter(x => x.v > 0).sort((a, b) => b.v - a.v).slice(0, 5).map(x => [x.n, x.v]), "linear-gradient(90deg,#c0392b,#e57368)")
+    }
+    function render() {
+      const { E, B } = led(), m = today().slice(0, 7), ms = D.s.filter(x => x.date.startsWith(m)), low = D.p.filter(p => p.stock <= p.min), dues = Object.values(B).filter(x => x.v > 0), f = $("#fm").value, mo = x => !f || x.date.startsWith(f);
+      $("#cd").innerHTML = [["এ মাসের বিক্রয়", tk(ms.reduce((a, x) => a + x.total, 0)), "🛒", "#e3ebf7"], ["এ মাসে বাকি আদায়", tk(D.pay.filter(x => x.date.startsWith(m)).reduce((a, x) => a + x.amount, 0)), "💰", "#e4f5ec"], ["মোট বাকি", tk(dues.reduce((a, x) => a + x.v, 0)), "⏳", "#fdeaea"], ["পণ্যের সংখ্যা", bn(D.p.length), "📦", "#fbf1dc"], ["কম মজুত", bn(low.length), "⚠️", "#fdeaea"]].map(([a, b, i, c]) => `<div class="k"><i style="background:${c}">${i}</i><div><small>${a}</small><b>${b}</b></div></div>`).join("");
+      $("#lw").innerHTML = "<tr><th>পণ্য</th><th>মজুত</th></tr>" + (low.map(p => `<tr><td>${esc(p.name)}</td><td class="low">${bn(p.stock)} ${esc(p.unit)}</td></tr>`).join("") || "<tr><td colspan=2>কম মজুতের কোনো পণ্য নেই।</td></tr>");
+      $("#pt").innerHTML = "<tr><th>নাম</th><th>বিভাগ</th><th>ব্র্যান্ড</th><th>মূল্য</th><th>মজুত</th><th></th></tr>" + (D.p.map(p => `<tr><td>${esc(p.name)}</td><td>${esc(p.cat)}</td><td>${esc(p.brand)}</td><td>${tk(p.price)}/${esc(p.unit)}</td><td class="${p.stock <= p.min ? "low" : ""}">${bn(p.stock)}</td><td><button class="b s" data-e="${p.id}">সম্পাদনা</button> <button class="b s r" data-x="${p.id}">মুছুন</button></td></tr>`).join("") || "<tr><td colspan=6>এখনো কোনো পণ্য যোগ করা হয়নি।</td></tr>");
+      $("#sf [name=pid]").innerHTML = '<option value="">নির্বাচন করুন</option>' + D.p.map(p => `<option value="${p.id}">${esc(p.name)} (মজুত ${bn(p.stock)})</option>`).join("");
+      $("#cl").innerHTML = Object.values(B).map(x => `<option value="${esc(x.n)}">`).join("");
+      const rows = E.filter(x => x.k === "s" && mo(x)).reverse();
+      $("#st").innerHTML = "<tr><th>তারিখ</th><th>ক্রেতা</th><th>পণ্য</th><th>পরিমাণ</th><th>পূর্বের বাকি</th><th>নতুন মোট</th><th>পরিশোধিত</th><th>মোট বাকি</th><th></th></tr>" + (rows.map(x => `<tr><td>${x.date}</td><td>${esc(x.cust)}</td><td>${esc(x.pname)}</td><td>${bn(x.qty)}</td><td>${tk(x.prev)}</td><td>${tk(x.total)}</td><td>${tk(x.paid)}</td><td class="${x.after > 0 ? "low" : ""}">${tk(x.after)}</td><td><button class="b s r" data-d="${x.id}">মুছুন</button></td></tr>`).join("") || "<tr><td colspan=9>কোনো বিক্রয় রেকর্ড নেই।</td></tr>") + (rows.length ? `<tr><th colspan=5>মোট</th><th>${tk(rows.reduce((a, x) => a + x.total, 0))}</th><th>${tk(rows.reduce((a, x) => a + x.paid, 0))}</th><th colspan=2></th></tr>` : "");
+      $("#dt").innerHTML = "<tr><th>ক্রেতা</th><th>মোবাইল</th><th>বাকি</th><th></th></tr>" + (dues.map(x => `<tr><td>${esc(x.n)}</td><td>${esc(x.ph)}</td><td class="low">${tk(x.v)}</td><td><button class="b s g" data-c="${esc(x.n)}" data-h="${esc(x.ph)}" data-a="${x.v}">বাকি জমা নিন</button></td></tr>`).join("") || "<tr><td colspan=4>কোনো ক্রেতার বাকি নেই।</td></tr>");
+      const pr = E.filter(x => x.k === "p" && mo(x)).reverse();
+      $("#vt").innerHTML = "<tr><th>তারিখ</th><th>ক্রেতা</th><th>জমা</th><th>মন্তব্য</th><th>আগের বাকি</th><th>পরের বাকি</th><th></th></tr>" + (pr.map(x => `<tr><td>${x.date}</td><td>${esc(x.cust)}</td><td>${tk(x.amount)}</td><td>${esc(x.note)}</td><td>${tk(x.prev)}</td><td>${tk(x.after)}</td><td><button class="b s r" data-px="${x.id}">মুছুন</button></td></tr>`).join("") || "<tr><td colspan=7>কোনো জমার রেকর্ড নেই।</td></tr>");
+      $("#stat").textContent = "মোট রেকর্ড: " + bn(D.s.length) + " টি বিক্রয়"; prevS(); prevV(); charts(B);
+    }
+    $("#pf").onsubmit = e => {
+      e.preventDefault(); const f = e.target, o = { name: f.name.value.trim(), cat: f.cat.value, brand: f.brand.value.trim(), unit: f.unit.value.trim() || "একক", price: +f.price.value, stock: +f.stock.value, min: +f.min.value || 0 };
+      if (f.id.value) { Object.assign(D.p.find(p => p.id === f.id.value), o) } else D.p.push({ id: uid(), ...o });
+      f.reset(); f.id.value = ""; f.unit.value = "ব্যাগ"; f.min.value = 10; $("#pb").textContent = "পণ্য যোগ করুন"; save()
+    };
+    $("#pt").onclick = e => {
+      const t = e.target, i = t.dataset.e || t.dataset.x; if (!i) return;
+      if (t.dataset.x) { if (D.s.some(s => s.pid === i)) { alert("এই পণ্যের বিক্রয় রেকর্ড আছে, তাই মুছে ফেলা যাবে না।"); return } if (confirm("পণ্যটি মুছে ফেলবেন?")) { D.p = D.p.filter(p => p.id !== i); save() } return }
+      const p = D.p.find(p => p.id === i), f = $("#pf"); Object.keys(p).forEach(k => f[k] && (f[k].value = p[k])); f.id.value = i; $("#pb").textContent = "হালনাগাদ করুন"; scrollTo({ top: 0 })
+    };
+    $("#sf [name=pid]").onchange = e => { const p = D.p.find(p => p.id === e.target.value); if (p) $("#sf [name=price]").value = p.price };
+    $("#sf [name=date]").value = today();
+    $("#sf").onsubmit = e => {
+      e.preventDefault(); const f = e.target, p = D.p.find(p => p.id === f.pid.value), q = +f.qty.value, pr = +f.price.value, paid = +f.paid.value || 0, ph = f.ph.value.trim(), pd = dueOf(f.cust.value, ph);
+      if (!p) { alert("পণ্য নির্বাচন করুন।"); return } if (q > p.stock) { alert("মজুত যথেষ্ট নয়। বর্তমান মজুত: " + bn(p.stock) + " " + p.unit); return }
+      if (paid > q * pr + Math.max(pd, 0)) { alert("পরিশোধিত অর্থ মোট পরিশোধযোগ্য (" + tk(q * pr + Math.max(pd, 0)) + ") এর চেয়ে বেশি হতে পারে না।"); return }
+      p.stock -= q; D.s.push({ id: uid(), t: Date.now(), date: f.date.value, cust: f.cust.value.trim(), ph, pid: p.id, pname: p.name, qty: q, price: pr, total: q * pr, paid });
+      f.reset(); f.date.value = today(); save()
+    };
+    $("#vf").onsubmit = e => {
+      e.preventDefault(); const f = e.target, n = f.cust.value.trim(), ph = f.ph.value.trim(), a = +f.amount.value, d = dueOf(n, ph);
+      if (d <= 0) { alert("এই ক্রেতার কোনো বাকি নেই। নাম বা মোবাইল নম্বর মিলিয়ে দেখুন।"); return }
+      if (a > d) { alert("জমার অঙ্ক বাকির (" + tk(d) + ") চেয়ে বেশি হতে পারে না।"); return }
+      D.pay.push({ id: uid(), t: Date.now(), date: f.date.value, cust: n, ph, amount: a, note: f.note.value.trim() }); f.reset(); f.date.value = today(); save()
+    };
+    $("#vf [name=date]").value = today();
+    $("#dt").onclick = e => { const d = e.target.dataset; if (!d.c) return; const f = $("#vf"); f.cust.value = d.c; f.ph.value = d.h; f.amount.value = d.a; prevV(); scrollTo({ top: 0 }) };
+    $("#vt").onclick = e => { const i = e.target.dataset.px; if (i && confirm("জমার রেকর্ডটি মুছলে ক্রেতার বাকি আবার বাড়বে। মুছবেন?")) { D.pay = D.pay.filter(x => x.id !== i); save() } };
+    ["cust", "ph", "qty", "price", "paid"].forEach(n => $("#sf [name=" + n + "]").addEventListener("input", prevS));["cust", "ph"].forEach(n => $("#vf [name=" + n + "]").addEventListener("input", prevV));
+    $("#sf [name=cust]").onchange = () => { fillPh($("#sf")); prevS() }; $("#vf [name=cust]").onchange = () => { fillPh($("#vf")); prevV() };
+    $("#st").onclick = e => {
+      const i = e.target.dataset.d; if (!i || !confirm("রেকর্ডটি মুছলে পণ্যের মজুত আগের অবস্থায় ফিরবে। মুছবেন?")) return;
+      const s = D.s.find(x => x.id === i), p = D.p.find(x => x.id === s.pid); if (p) p.stock += s.qty; D.s = D.s.filter(x => x.id !== i); save()
+    };
+    $("#fm").onchange = render;
+    $("#eb").onclick = () => dl("saad-backup-" + today() + ".json", JSON.stringify(D, null, 1), "application/json");
+    $("#ib").onchange = e => { const r = new FileReader(); r.onload = () => { try { const j = JSON.parse(r.result); if (!Array.isArray(j.p) || !Array.isArray(j.s)) throw 0; if (confirm("বর্তমান সব তথ্য ব্যাকআপের তথ্য দিয়ে বদলে যাবে। চালিয়ে যাবেন?")) { D = j; D.pay = D.pay || []; save() } } catch (x) { alert("ফাইলটি সঠিক ব্যাকআপ ফাইল নয়।") } }; r.readAsText(e.target.files[0]) };
+    const csv = (h, r) => "\uFEFF" + [h].concat(r.map(a => a.map(v => '"' + String(v ?? "").replace(/"/g, '""') + '"').join(","))).join("\n");
+    $("#es").onclick = () => dl("sales-" + today() + ".csv", csv("তারিখ,ক্রেতা,মোবাইল,পণ্য,পরিমাণ,একক মূল্য,পূর্বের বাকি,নতুন মোট,পরিশোধিত,মোট বাকি", led().E.filter(x => x.k === "s").map(x => [x.date, x.cust, x.ph, x.pname, x.qty, x.price, x.prev, x.total, x.paid, x.after])), "text/csv");
+    $("#ev").onclick = () => dl("due-payments-" + today() + ".csv", csv("তারিখ,ক্রেতা,মোবাইল,জমা,মন্তব্য,আগের বাকি,পরের বাকি", led().E.filter(x => x.k === "p").map(x => [x.date, x.cust, x.ph, x.amount, x.note, x.prev, x.after])), "text/csv");
+    $("#ep").onclick = () => dl("products.json", JSON.stringify(D.p.map(({ name, cat, brand, unit }) => ({ name, cat, brand, unit })), null, 1), "application/json");
+    render();
+    const SK = K + "_sync"; let SY = { url: "", token: "", ver: 0, dirty: false }; try { SY = Object.assign(SY, JSON.parse(localStorage.getItem(SK))) } catch (e) { }
+    const sSave = () => { try { localStorage.setItem(SK, JSON.stringify(SY)) } catch (e) { } }, st = (t, c) => { $("#sy").textContent = t; $("#sy").style.color = c || "" };
+    async function api(q, body) { const r = await fetch(body ? SY.url : SY.url + "?token=" + encodeURIComponent(SY.token) + "&" + q, body ? { method: "POST", body: JSON.stringify({ ...body, token: SY.token }) } : {}); return r.json() }
+    let tm; function queue() { if (!SY.url) return; SY.dirty = true; sSave(); st("⏳ সিঙ্কের অপেক্ষায়", "#ffe09a"); clearTimeout(tm); tm = setTimeout(() => push(), 1500) }
+    async function push(force) {
+      if (!SY.url) return; st("⏳ সিঙ্ক হচ্ছে…", "#ffe09a");
+      try {
+        const r = await api("", { d: { p: D.p, s: D.s, pay: D.pay }, base: SY.ver, force: !!force });
+        if (r.conflict) { if (confirm("অন্য ডিভাইসে নতুন তথ্য সংরক্ষিত হয়েছে।\n\nOK = গুগল শিটের তথ্য নিন (আপনার অসিঙ্ক পরিবর্তন বাদ যাবে)\nCancel = আপনার তথ্য দিয়ে শিট বদলান")) return pull(); return push(true) }
+        if (!r.ok) throw 0; SY.ver = r.v; SY.dirty = false; sSave(); st("✅ গুগল শিটে সংরক্ষিত", "#8ee0b0")
+      } catch (e) { st("⚠️ সিঙ্ক ব্যর্থ — তথ্য এই ডিভাইসে আছে", "#ffb4a8") }
+    }
+    async function pull() {
+      if (!SY.url) return; st("⏳ শিট থেকে আনা হচ্ছে…", "#ffe09a");
+      try {
+        const r = await api("action=get"); if (!r.ok) throw 0; const fx = (a, n) => (a || []).map(o => { n.forEach(k => o[k] = +o[k] || 0);["id", "name", "cat", "brand", "unit", "date", "cust", "ph", "pid", "pname", "note"].forEach(k => { if (k in o) o[k] = String(o[k]) }); return o });
+        D = { p: fx(r.d.p, ["price", "stock", "min"]), s: fx(r.d.s, ["t", "qty", "price", "total", "paid"]), pay: fx(r.d.pay, ["t", "amount"]) };
+        try { localStorage.setItem(K, JSON.stringify(D)) } catch (e) { } SY.ver = r.v; SY.dirty = false; sSave(); render(); st("✅ গুগল শিট থেকে হালনাগাদ", "#8ee0b0")
+      } catch (e) { st("⚠️ শিট থেকে আনা যায়নি", "#ffb4a8") }
+    }
+    async function boot() { if (!SY.url) return; try { const r = await api("action=ver"); if (!r.ok) throw 0; if (r.v !== SY.ver) { SY.dirty ? await push() : await pull() } else if (SY.dirty) await push(); else st("✅ গুগল শিটের সঙ্গে সংযুক্ত", "#8ee0b0") } catch (e) { st("⚠️ অফলাইন — তথ্য এই ডিভাইসে", "#ffb4a8") } }
+    const gf = $("#gf"); gf.url.value = SY.url; gf.token.value = SY.token;
+    gf.onsubmit = async e => {
+      e.preventDefault(); SY.url = gf.url.value.trim(); SY.token = gf.token.value.trim(); if (!SY.url || !SY.token) { alert("URL ও গোপন কোড দুটোই দিন।"); return }
+      try {
+        const r = await api("action=ver"); if (!r.ok) throw 0; SY.ver = r.v; SY.dirty = false; sSave();
+        const empty = !D.p.length && !D.s.length && !D.pay.length;
+        if (r.v === 0) await push(true); else if (empty) await pull(); else if (confirm("শিটে আগের তথ্য আছে।\n\nOK = শিটের তথ্য নিন (এই ডিভাইসের তথ্য বদলে যাবে)\nCancel = এই ডিভাইসের তথ্য দিয়ে শিট বদলান")) await pull(); else await push(true);
+        alert("সংযোগ সফল হয়েছে।")
+      } catch (x) { SY.url = ""; SY.token = ""; sSave(); alert("সংযোগ করা যায়নি। URL, গোপন কোড এবং ডিপ্লয়ের অ্যাক্সেস (Anyone) মিলিয়ে দেখুন।") }
+    };
+    $("#gp").onclick = () => SY.url ? push() : alert("আগে গুগল শিট সংযুক্ত করুন।");
+    $("#gg").onclick = () => { if (!SY.url) return alert("আগে গুগল শিট সংযুক্ত করুন।"); if (confirm("এই ডিভাইসের তথ্য শিটের তথ্য দিয়ে বদলে যাবে। চালিয়ে যাবেন?")) pull() };
+    $("#gx").onclick = () => { if (confirm("সংযোগ বিচ্ছিন্ন করবেন? এই ডিভাইসের তথ্য থাকবে।")) { SY = { url: "", token: "", ver: 0, dirty: false }; sSave(); gf.reset(); st("") } };
+    boot();
+  </script>
+</body>
+
+</html>
