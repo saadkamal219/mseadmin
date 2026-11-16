@@ -2,12 +2,13 @@
 const TOKEN = 'এখানে-নিজের-গোপন-কোড-লিখুন'; // অবশ্যই বদলান (ইংরেজি অক্ষর ও সংখ্যা ব্যবহার করা ভালো)
 const COLS = {
   p: ['id','name','cat','brand','unit','price','stock','min'],
-  s: ['id','t','date','cust','ph','pid','pname','qty','price','total','paid'],
-  pay: ['id','t','date','cust','ph','amount','note']
+  s: ['id','t','inv','no','date','cust','ph','pid','pname','qty','price','total','paid'],
+  pay: ['id','t','no','date','cust','ph','amount','note'],
+  ex: ['id','t','no','date','title','cat','amount','to','note']
 };
-const NAMES = {p:'পণ্য', s:'বিক্রয়', pay:'বাকি জমা'};
-const TEXT = ['id','name','cat','brand','unit','date','cust','ph','pid','pname','note'];
-const out = o => ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);
+const NAMES = {p:'পণ্য', s:'বিক্রয়', pay:'বাকি জমা', ex:'ব্যয়'};
+const TEXT = ['id','name','cat','brand','unit','date','cust','ph','pid','pname','note','inv','no','title','to'];
+const out = o => ContentService.createTextOutput(JSON.stringify(Object.assign({api:2},o))).setMimeType(ContentService.MimeType.JSON);
 const ver = () => Number(PropertiesService.getScriptProperties().getProperty('v')) || 0;
 function sheet(k){
   const ss = SpreadsheetApp.getActive();
@@ -20,8 +21,8 @@ function doGet(e){
   if(e.parameter.action === 'ver') return out({ok:true,v:ver()});
   const d = {};
   for(const k in COLS){
-    const r = sheet(k).getDataRange().getValues(); r.shift();
-    d[k] = r.filter(x => x[0] !== '').map(x => { const o = {}; COLS[k].forEach((c,i) => o[c] = x[i]); return o; });
+    const r = sheet(k).getDataRange().getValues(), h = r.shift();
+    d[k] = r.filter(x => x[0] !== '').map(x => { const o = {}; h.forEach((c,i) => { if(COLS[k].indexOf(c) >= 0) o[c] = x[i]; }); return o; });
   }
   return out({ok:true,v:ver(),d});
 }
