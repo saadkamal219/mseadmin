@@ -9,6 +9,9 @@
   <title>অ্যাডমিন ড্যাশবোর্ড | মেসার্স সাদ এন্টারপ্রাইজ</title>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap"
     rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@500;600;700;800&family=Bangers&family=Oswald:wght@500;600;700&display=swap"
+    rel="stylesheet">
+  <script>try { var t = localStorage.getItem("saad_admin_theme"); if (t === "manga" || t === "jurassic") document.documentElement.dataset.theme = t } catch (e) { }</script>
   <style>
     :root {
       --n: #14243B;
@@ -489,13 +492,156 @@
       margin: 0 auto;
       border-radius: 8px
     }
+
+    /* ===== থিম সুইচ ===== */
+    .hr{display:flex;align-items:center;gap:14px}
+    .tsw{display:flex;gap:2px;padding:3px;border-radius:999px;background:rgba(255,255,255,.12)}
+    .tsw button{display:flex;align-items:center;gap:5px;border:0;background:none;color:#dfe6f2;font:inherit;font-size:13px;line-height:1.4;padding:4px 11px;border-radius:999px;cursor:pointer;white-space:nowrap}
+    .tsw button.sel{background:var(--g);color:#14243B;font-weight:600}
+    .tsw button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+    @media(max-width:640px){.tsw button span{display:none}.tsw button{padding:5px 9px;font-size:16px}header{height:auto;min-height:60px;padding:8px 12px;flex-wrap:wrap}.hr{gap:8px}}
+
+    /* ===== মাঙ্গা থিম (manga.css অনুসরণে: লাল #F42902 · লাইম #C8FF00 · কালি #111) ===== */
+    [data-theme=manga]{--n:#111;--n2:#111;--g:#C8FF00;--bg:#FDFDFF;--ok:#111;--bad:#F42902;--r:0}
+    [data-theme=manga] ::selection{background:#C8FF00;color:#111}
+    [data-theme=manga] :focus-visible{outline:3px solid #111;outline-offset:3px}
+    [data-theme=manga] header :focus-visible{outline-color:#fff}
+    [data-theme=manga] body{background:#FDFDFF radial-gradient(rgba(0,0,0,.05) 1px,transparent 1.4px) 0 0/7px 7px;color:#111}
+    [data-theme=manga] header{background:#F42902 radial-gradient(circle,rgba(0,0,0,.2) 1.5px,transparent 2px) 0 0/12px 12px;box-shadow:none}
+    [data-theme=manga] header:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:repeating-conic-gradient(from 0deg at 74% 52%,rgba(255,255,255,.2) 0 1.1deg,transparent 1.1deg 6deg);-webkit-mask-image:radial-gradient(circle at 74% 52%,transparent 12%,#000 60%);mask-image:radial-gradient(circle at 74% 52%,transparent 12%,#000 60%)}
+    [data-theme=manga] header:after{content:"";position:absolute;left:0;right:0;bottom:-16px;height:14px;background:repeating-linear-gradient(-45deg,#C8FF00 0 14px,#111 14px 28px);border-block:2px solid #111}
+    [data-theme=manga] .lg,[data-theme=manga] .hr{position:relative;z-index:1}
+    [data-theme=manga] .lg img{height:44px;width:auto;background:#fff;border:2px solid #111;border-radius:8px;padding:2px}
+    @media(min-width:760px){[data-theme=manga] .lg:after{content:"BAM!";font:400 21px/1 Bangers,cursive;letter-spacing:1px;color:#111;margin-left:6px;padding:17px 26px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpolygon points='99.0,50.0 85.1,58.0 94.1,71.3 78.1,72.4 80.6,88.3 65.6,82.4 60.9,97.8 50.0,86.0 39.1,97.8 34.4,82.4 19.4,88.3 21.9,72.4 5.9,71.3 14.9,58.0 1.0,50.0 14.9,42.0 5.9,28.7 21.9,27.6 19.4,11.7 34.4,17.6 39.1,2.2 50.0,14.0 60.9,2.2 65.6,17.6 80.6,11.7 78.1,27.6 94.1,28.7 85.1,42.0' fill='%23C8FF00' stroke='%23111' stroke-width='3' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat;transform:rotate(-8deg)}}
+    [data-theme=manga] .tsw{background:none;padding:0;gap:6px}
+    [data-theme=manga] .tsw button{color:#fff;border:1.5px solid rgba(255,255,255,.85);border-radius:99px;font-weight:600;transition:.2s}
+    [data-theme=manga] .tsw button:hover,[data-theme=manga] .tsw button.sel{background:#fff;color:#F42902}
+    [data-theme=manga] header small{color:#fff}
+    [data-theme=manga] header #sy:not(:empty){background:#111;border-radius:99px;padding:0 10px}
+    [data-theme=manga] nav{background:#fff radial-gradient(rgba(244,41,2,.22) 1.3px,transparent 1.7px) 0 0/9px 9px}
+    @media(min-width:900px){[data-theme=manga] nav{border-right:2px solid #111}}
+    @media(max-width:899px){[data-theme=manga] nav{border-top:2px solid #111;box-shadow:none}}
+    [data-theme=manga] nav button{color:#111;font-weight:600;border:2px solid transparent;border-radius:6px;transition:transform .2s cubic-bezier(.3,1.6,.5,1),box-shadow .2s,background .2s}
+    [data-theme=manga] nav button:hover{background:#fff;border-color:#111;box-shadow:3px 3px 0 #111;transform:translate(-2px,-2px)}
+    [data-theme=manga] nav button.on{background:#111;color:#C8FF00;border-color:#111;box-shadow:3px 3px 0 #F42902}
+    [data-theme=manga] h2{width:fit-content;background:#fff;color:#111;border:3px solid #111;padding:2px 16px;transform:rotate(-1.2deg);box-shadow:5px 5px 0 #111}
+    [data-theme=manga] h2:before{width:7px;height:22px;border-radius:0;background:#F42902;transform:skewX(-10deg)}
+    [data-theme=manga] .pn h3{color:#111;width:fit-content;padding:0 4px;background:linear-gradient(transparent 58%,#C8FF00 58%)}
+    [data-theme=manga] .k,[data-theme=manga] .pn,[data-theme=manga] form,[data-theme=manga] .tw{background:#fff;border:3px solid #111;border-radius:0;box-shadow:6px 6px 0 #111}
+    [data-theme=manga] form{box-shadow:6px 6px 0 #F42902}
+    [data-theme=manga] .k:hover{transform:none;animation:mshk .35s;box-shadow:7px 7px 0 #F42902}
+    @keyframes mshk{20%{transform:translate(-3px,1px) rotate(-.7deg)}50%{transform:translate(3px,-1px) rotate(.7deg)}80%{transform:translate(-2px,0)}}
+    [data-theme=manga] .cards .k:nth-child(4n+1){background:#C8FF00}
+    [data-theme=manga] .cards .k:nth-child(4n+3){background:#F42902;color:#fff}
+    [data-theme=manga] .cards .k:nth-child(4n){background:#111;color:#C8FF00}
+    [data-theme=manga] .k b,[data-theme=manga] .k small{color:inherit}
+    [data-theme=manga] .k small{font-weight:600}
+    [data-theme=manga] .k i{background:#fff!important;border:2px solid #111;border-radius:0}
+    [data-theme=manga] .note,[data-theme=manga] .lgd{color:#333}
+    [data-theme=manga] .warn{position:relative;background:#fff;color:#111;border:3px solid #111;border-radius:26px;box-shadow:5px 5px 0 #111;margin-bottom:40px}
+    [data-theme=manga] .warn:before{content:"";position:absolute;left:30px;bottom:-25px;border:11px solid transparent;border-top:25px solid #111;border-bottom:0}
+    [data-theme=manga] .warn:after{content:"";position:absolute;left:33px;bottom:-18px;border:8px solid transparent;border-top:19px solid #fff;border-bottom:0}
+    [data-theme=manga] .c{background:#FFF1ED;border:3px solid #111;border-left:10px solid #F42902;border-radius:0}
+    [data-theme=manga] label{color:#111;font-weight:600}
+    [data-theme=manga] input,[data-theme=manga] select{background:#fff;border:2px solid #111;border-radius:6px;color:#111}
+    [data-theme=manga] input:focus,[data-theme=manga] select:focus{border-color:#111;box-shadow:0 0 0 4px #C8FF00}
+    [data-theme=manga] .b{background:#fff;color:#111;border:2px solid #111;border-radius:6px;box-shadow:3px 3px 0 #111;font-weight:700;transition:transform .2s cubic-bezier(.3,1.6,.5,1),box-shadow .2s,background .2s,color .2s}
+    [data-theme=manga] .b:hover{background:#111;color:#C8FF00;transform:translate(-2px,-2px) rotate(-1deg);box-shadow:5px 5px 0 #111}
+    [data-theme=manga] .b:active{transform:translate(3px,3px)!important;box-shadow:0 0 0 #111!important}
+    [data-theme=manga] .b.g{background:#C8FF00;color:#111}
+    [data-theme=manga] .b.g:hover{background:#C8FF00;color:#111}
+    [data-theme=manga] .b.p{background:#111;color:#C8FF00;box-shadow:3px 3px 0 #F42902}
+    [data-theme=manga] .b.r{background:#fff;color:#F42902}
+    [data-theme=manga] .b.r:hover{background:#F42902;color:#fff}
+    [data-theme=manga] .b.s{box-shadow:2px 2px 0 #111}
+    [data-theme=manga] th{background:#111;color:#C8FF00;border-bottom:3px solid #111;font-weight:700}
+    [data-theme=manga] td{border-bottom:1px solid #ccc}
+    [data-theme=manga] tr:hover td{background:#FFF1ED}
+    [data-theme=manga] .bt{background:#fff;border:2px solid #111;border-radius:0;height:18px}
+    [data-theme=manga] .bf{border-radius:0;background:repeating-linear-gradient(-45deg,#C8FF00 0 8px,#111 8px 16px)!important}
+    [data-theme=manga] .bf[style*="c0392b" i]{background:repeating-linear-gradient(-45deg,#F42902 0 8px,#111 8px 16px)!important}
+    [data-theme=manga] .vb{stroke:#111;stroke-width:2}
+    [data-theme=manga] .vb[fill="#14243b" i]{fill:#111}
+    [data-theme=manga] .vb[fill="#d6a64b" i]{fill:#C8FF00}
+    [data-theme=manga] svg text[fill="#14243b" i],[data-theme=manga] svg text[fill="#4a5568" i]{fill:#111}
+    [data-theme=manga] svg text[fill="#8a6414" i]{fill:#F42902}
+    [data-theme=manga] svg line{stroke:#111}
+    [data-theme=manga] .lgd i{border:1.5px solid #111}
+    [data-theme=manga] .lgd i[style*="14243b" i]{background:#111!important}
+    [data-theme=manga] .lgd i[style*="d6a64b" i]{background:#C8FF00!important}
+    [data-theme=manga] .tab.on{animation:mp .35s cubic-bezier(.2,2.2,.4,1)}
+    @keyframes mp{from{opacity:0;transform:scale(1.08) rotate(-1deg)}}
+    .sfx{position:fixed;z-index:200;pointer-events:none;font:900 36px "Hind Siliguri",sans-serif;color:#C8FF00;text-shadow:-2px -2px 0 #111,2px -2px 0 #111,-2px 2px 0 #111,3px 3px 0 #111;animation:sfx .7s forwards}
+    @keyframes sfx{0%{transform:translate(-50%,-50%) rotate(var(--r)) scale(.3);opacity:1}40%{transform:translate(-50%,-70%) rotate(var(--r)) scale(1.3)}100%{transform:translate(-50%,-110%) rotate(var(--r)) scale(1);opacity:0}}
+
+    /* ===== জুরাসিক থিম ===== */
+    [data-theme=jurassic]{--n:#0e1a13;--n2:#16301f;--g:#f5a300;--bg:#0a120e;--ok:#6ddc8b;--bad:#ff5a3c;--r:6px;color-scheme:dark}
+    [data-theme=jurassic] body{background:radial-gradient(1100px 560px at 88% -8%,rgba(46,125,79,.30),transparent 60%),radial-gradient(900px 500px at -8% 108%,rgba(245,163,0,.10),transparent 60%),linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px) 0 0/100% 32px,#0a120e;background-attachment:fixed;color:#e6ecd9}
+    [data-theme=jurassic] header{background:linear-gradient(180deg,#112018,#0a120e);box-shadow:0 6px 24px rgba(245,163,0,.14)}
+    [data-theme=jurassic] header:after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:6px;background:repeating-linear-gradient(-45deg,#f5a300 0 12px,#111 12px 24px)}
+    [data-theme=jurassic] .lg{font-family:Oswald,"Anek Bangla","Hind Siliguri",sans-serif;font-weight:600;letter-spacing:.04em}
+    [data-theme=jurassic] .lg img{background:#fff;border-radius:8px;padding:2px}
+    [data-theme=jurassic] .tsw{background:#0b140f;border:1px solid #2c4a38}
+    [data-theme=jurassic] .tsw button.sel{background:#f5a300;color:#111}
+    @media(min-width:900px){
+      [data-theme=jurassic] header:before{content:"";position:absolute;left:44%;top:7px;width:90px;height:46px;opacity:.5;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 48'%3E%3Cg fill='%23f5a300'%3E%3Cpath d='M14 0h9L6 48z'/%3E%3Cpath d='M40 0h9L32 48z'/%3E%3Cpath d='M66 0h9L58 48z'/%3E%3C/g%3E%3C/svg%3E") no-repeat center/contain}
+      [data-theme=jurassic] body:after{content:"";position:fixed;right:24px;bottom:20px;width:200px;height:107px;opacity:.07;pointer-events:none;z-index:-1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 48'%3E%3Cg fill='%23f5a300'%3E%3Cpath d='M14 0h9L6 48z'/%3E%3Cpath d='M40 0h9L32 48z'/%3E%3Cpath d='M66 0h9L58 48z'/%3E%3C/g%3E%3C/svg%3E") no-repeat center/contain}
+    }
+    [data-theme=jurassic] nav{background:#0e1a13;border-color:#2c4a38}
+    @media(max-width:899px){[data-theme=jurassic] nav{border-top:2px solid #f5a300;box-shadow:0 -6px 20px rgba(0,0,0,.5)}}
+    [data-theme=jurassic] nav button{color:#b9c8b8;border:1px solid transparent}
+    [data-theme=jurassic] nav button:hover{background:#18291f;color:#fff}
+    [data-theme=jurassic] nav button.on{background:linear-gradient(90deg,#f5a300,#ffbf3f);color:#111;font-weight:700;box-shadow:0 0 18px rgba(245,163,0,.35)}
+    [data-theme=jurassic] h2,[data-theme=jurassic] .pn h3{font-family:Oswald,"Anek Bangla","Hind Siliguri",sans-serif;font-weight:600;letter-spacing:.05em;color:#ffc43d}
+    [data-theme=jurassic] h2:before{width:30px;height:12px;border-radius:0;background:repeating-linear-gradient(-45deg,#f5a300 0 5px,#111 5px 10px)}
+    [data-theme=jurassic] .k,[data-theme=jurassic] .pn,[data-theme=jurassic] form,[data-theme=jurassic] .tw{background:linear-gradient(180deg,#14241b,#101c15);border:1px solid #2c4a38;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.35);color:#e6ecd9}
+    [data-theme=jurassic] .k,[data-theme=jurassic] .pn,[data-theme=jurassic] form{border-top:3px solid #f5a300}
+    [data-theme=jurassic] .k:hover{border-color:#f5a300;box-shadow:0 0 22px rgba(245,163,0,.25)}
+    [data-theme=jurassic] .k i{background:rgba(245,163,0,.12)!important;border:1px solid rgba(245,163,0,.5);border-radius:8px}
+    [data-theme=jurassic] .k b{color:#fff}
+    [data-theme=jurassic] .k small,[data-theme=jurassic] .note{color:#9db3a0}
+    [data-theme=jurassic] .lgd,[data-theme=jurassic] label{color:#b9c8b8}
+    [data-theme=jurassic] .warn{background:rgba(245,163,0,.1);border:1px solid #f5a300;border-left:6px solid #f5a300;border-radius:4px;color:#ffe3a3}
+    [data-theme=jurassic] .warn:before{content:"⚠ CAUTION";font:600 13px Oswald,sans-serif;letter-spacing:.08em;background:#f5a300;color:#111;padding:1px 8px;margin-right:8px}
+    [data-theme=jurassic] .c{background:#0d1a12;border:1px solid #2c4a38;border-left:4px solid #f5a300;color:#e6ecd9}
+    [data-theme=jurassic] input,[data-theme=jurassic] select{background:#0b140f;border:1.5px solid #2c4a38;color:#e6ecd9}
+    [data-theme=jurassic] ::placeholder{color:#6f8575}
+    [data-theme=jurassic] .b{background:#16301f;color:#ffe3a3;border:1.5px solid #f5a300;border-radius:4px;font-weight:600}
+    [data-theme=jurassic] .b:hover{background:#1f3d2a;box-shadow:0 0 14px rgba(245,163,0,.35)}
+    [data-theme=jurassic] .b.p{background:#2e7d4f;border-color:#6ddc8b;color:#fff}
+    [data-theme=jurassic] .b.g{background:#f5a300;color:#111}
+    [data-theme=jurassic] .b.r{background:transparent;border-color:#ff5a3c;color:#ff8f78}
+    [data-theme=jurassic] #ovc{color:#111}
+    [data-theme=jurassic] th{background:#0c1711;color:#ffc43d;border-bottom:2px solid #f5a300;letter-spacing:.03em}
+    [data-theme=jurassic] td{color:#e6ecd9;border-bottom:1px solid #1f3527}
+    [data-theme=jurassic] tr:hover td{background:#16291d}
+    [data-theme=jurassic] .bt{background:#0b140f;border:1px solid #2c4a38}
+    [data-theme=jurassic] .bf{background:linear-gradient(90deg,#2e7d4f,#6ddc8b)!important}
+    [data-theme=jurassic] .bf[style*="c0392b" i]{background:linear-gradient(90deg,#b8321c,#ff5a3c)!important}
+    [data-theme=jurassic] .vb[fill="#14243b" i]{fill:#2e7d4f}
+    [data-theme=jurassic] .vb[fill="#d6a64b" i]{fill:#f5a300}
+    [data-theme=jurassic] svg text[fill="#14243b" i]{fill:#e6ecd9}
+    [data-theme=jurassic] svg text[fill="#8a6414" i]{fill:#ffc43d}
+    [data-theme=jurassic] svg text[fill="#4a5568" i]{fill:#9db3a0}
+    [data-theme=jurassic] svg line{stroke:#2c4a38}
+    [data-theme=jurassic] .lgd i[style*="14243b" i]{background:#2e7d4f!important}
+    [data-theme=jurassic] .lgd i[style*="d6a64b" i]{background:#f5a300!important}
+
+    @media(prefers-reduced-motion:reduce){[data-theme] .tab.on,[data-theme=manga] .k:hover,.sfx{animation:none}}
   </style>
 </head>
 
 <body>
   <header>
     <div class="lg"><img src="smalllogo.png" alt="" width="48" height="48"> মেসার্স সাদ এন্টারপ্রাইজ</div>
-    <div><small id="sy"></small> · <small id="stat"></small></div>
+    <div class="hr">
+      <div class="tsw" id="tsw" role="group" aria-label="থিম নির্বাচন">
+        <button type="button" data-th="classic" class="sel" aria-pressed="true" title="ক্লাসিক থিম">🏢<span>ক্লাসিক</span></button>
+        <button type="button" data-th="manga" aria-pressed="false" title="মাঙ্গা থিম">💥<span>মাঙ্গা</span></button>
+        <button type="button" data-th="jurassic" aria-pressed="false" title="জুরাসিক থিম">🦖<span>জুরাসিক</span></button>
+      </div>
+      <div><small id="sy"></small> · <small id="stat"></small></div>
+    </div>
   </header>
   <nav id="nv"><button data-t="d" class="on"><i>📊</i><span>ড্যাশবোর্ড</span></button><button
       data-t="p"><i>📦</i><span>পণ্য</span></button><button data-t="s"><i>🧾</i><span>বিক্রয়</span></button><button
@@ -835,6 +981,22 @@ button{margin:0 0 14px;padding:8px 18px;font:inherit;cursor:pointer}@media print
     $("#gg").onclick = () => { if (!SY.url) return alert("আগে গুগল শিট সংযুক্ত করুন।"); if (confirm("এই ডিভাইসের তথ্য শিটের তথ্য দিয়ে বদলে যাবে। চালিয়ে যাবেন?")) pull() };
     $("#gx").onclick = () => { if (confirm("সংযোগ বিচ্ছিন্ন করবেন? এই ডিভাইসের তথ্য থাকবে।")) { SY = { url: "", token: "", ver: 0, dirty: false }; sSave(); gf.reset(); st("") } };
     $("#ec").onclick = () => dl("expenses-" + today() + ".csv", csv("ভাউচার,তারিখ,বিবরণ,খাত,কাকে পরিশোধ,পরিমাণ,মন্তব্য", D.ex.map(x => [x.no, x.date, x.title, x.cat, x.to, x.amount, x.note])), "text/csv");
+    const TK = "saad_admin_theme", setTheme = t => {
+      if (t !== "manga" && t !== "jurassic") t = "classic";
+      if (t === "classic") delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = t;
+      document.querySelectorAll("#tsw button").forEach(b => { const o = b.dataset.th === t; b.classList.toggle("sel", o); b.setAttribute("aria-pressed", o) });
+      try { localStorage.setItem(TK, t) } catch (e) { }
+    };
+    $("#tsw").onclick = e => { const b = e.target.closest("button"); if (b) setTheme(b.dataset.th) };
+    setTheme(document.documentElement.dataset.theme);
+    // মাঙ্গা থিমে বাটনে ক্লিক করলে SFX লেখা ভেসে ওঠে
+    document.addEventListener("click", e => {
+      if (document.documentElement.dataset.theme !== "manga" || matchMedia("(prefers-reduced-motion:reduce)").matches || !e.target.closest(".b,nav button")) return;
+      const w = ["বুম!", "ঠাস!", "ধুম!", "ঝাঁই!", "ওয়াও!"], s = document.createElement("div");
+      s.className = "sfx"; s.textContent = w[Math.random() * w.length | 0];
+      s.style.cssText = "left:" + e.clientX + "px;top:" + e.clientY + "px;--r:" + (Math.random() * 24 - 12).toFixed(1) + "deg";
+      document.body.appendChild(s); setTimeout(() => s.remove(), 750);
+    });
     boot();
   </script>
 </body>
