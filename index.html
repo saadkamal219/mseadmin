@@ -670,6 +670,16 @@
         <h3>সর্বোচ্চ বাকি থাকা ক্রেতা</h3>
         <div id="ch3"></div>
       </div>
+      <div class="grid2">
+        <div class="pn">
+          <h3>সেরা ৫ ডিলার (মোট ক্রয়)</h3>
+          <div id="ch4"></div>
+        </div>
+        <div class="pn">
+          <h3>যে ডিলারদের কাছে সর্বোচ্চ বাকি</h3>
+          <div id="ch5"></div>
+        </div>
+      </div>
       <h2>কম মজুত পণ্য</h2>
       <div class="tw">
         <table id="lw"></table>
@@ -869,6 +879,9 @@
       const pm = {}; D.s.forEach(x => pm[x.pname] = (pm[x.pname] || 0) + x.total);
       $("#ch2").innerHTML = hbar(Object.entries(pm).sort((a, b) => b[1] - a[1]).slice(0, 5), "linear-gradient(90deg,#14243B,#2f5489)");
       $("#ch3").innerHTML = hbar(Object.values(B).filter(x => x.v > 0).sort((a, b) => b.v - a.v).slice(0, 5).map(x => [x.n, x.v]), "linear-gradient(90deg,#c0392b,#e57368)")
+      const dm = {}; D.u.forEach(x => { const q = key(x.dealer, x.ph); dm[q] = dm[q] || { n: x.dealer, v: 0 }; dm[q].v += x.total });
+      $("#ch4").innerHTML = hbar(Object.values(dm).sort((a, b) => b.v - a.v).slice(0, 5).map(x => [x.n, x.v]), "linear-gradient(90deg,#6b4fa3,#9b83cf)");
+      $("#ch5").innerHTML = hbar(Object.values(ledD().B).filter(x => x.v > 0).sort((a, b) => b.v - a.v).slice(0, 5).map(x => [x.n, x.v]), "linear-gradient(90deg,#c0392b,#e57368)")
     }
     function render() {
       const { E, B } = led(), m = today().slice(0, 7), ms = D.s.filter(x => x.date.startsWith(m)), low = D.p.filter(p => p.stock <= p.min), dues = Object.values(B).filter(x => x.v > 0), f = $("#fm").value, mo = x => !f || x.date.startsWith(f);
