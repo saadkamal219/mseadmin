@@ -645,7 +645,7 @@
   </header>
   <nav id="nv"><button data-t="d" class="on"><i>📊</i><span>ড্যাশবোর্ড</span></button><button
       data-t="p"><i>📦</i><span>পণ্য</span></button><button data-t="s"><i>🧾</i><span>বিক্রয়</span></button><button
-      data-t="v"><i>💰</i><span>বাকি আদায়</span></button><button data-t="e"><i>💸</i><span>ব্যয়</span></button><button
+      data-t="v"><i>💰</i><span>বাকি আদায়</span></button><button data-t="u"><i>🚚</i><span>ডিলার ক্রয়</span></button><button data-t="e"><i>💸</i><span>ব্যয়</span></button><button
       data-t="k"><i>☁️</i><span>ব্যাকআপ</span></button></nav>
   <main>
     <div class="warn">এই পেজের তথ্য শুধু এই ব্রাউজারে সংরক্ষিত হয়। কোনো সার্ভার বা পাসওয়ার্ড নেই। নিয়মিত "ব্যাকআপ"
@@ -736,6 +736,40 @@
         <table id="vt"></table>
       </div>
     </section>
+    <section class="tab" id="u">
+      <h2>ডিলারের কাছ থেকে নতুন ক্রয়</h2>
+      <form id="uf"><label>তারিখ *<input name="date" type="date" required></label><label>ডিলারের নাম *<input name="dealer"
+            required list="dl" autocomplete="off"></label><label>মোবাইল<input name="ph"></label><datalist
+          id="dl"></datalist>
+        <label>পণ্য<select name="pid"></select></label><label>পরিমাণ<input name="qty" inputmode="decimal"
+            autocomplete="off"></label><label>ক্রয়মূল্য (৳)<input name="price" inputmode="decimal"
+            autocomplete="off"></label><button type="button" class="b p" id="ui">＋ আইটেম যোগ করুন</button>
+        <div id="ucart" style="grid-column:1/-1"></div>
+        <label>এখন পরিশোধ (৳)<input name="paid" inputmode="decimal" autocomplete="off" value="0"></label>
+        <div class="c" id="ub" style="grid-column:1/-1"></div><button class="b g">ক্রয় সংরক্ষণ ও মেমো</button>
+      </form>
+      <h2>ডিলারকে বাকি পরিশোধ</h2>
+      <form id="wf"><label>তারিখ *<input name="date" type="date" required></label><label>ডিলারের নাম *<input name="dealer"
+            required list="dl" autocomplete="off"></label><label>মোবাইল<input name="ph"></label>
+        <label>পরিশোধের পরিমাণ (৳) *<input name="amount" inputmode="decimal" autocomplete="off"
+            required></label><label>মন্তব্য<input name="note" placeholder="যেমন: নগদ / ব্যাংক"></label>
+        <div class="c" id="wb" style="grid-column:1/-1"></div><button class="b g">বাকি পরিশোধ করুন</button>
+      </form>
+      <h2>ডিলারের কাছে বাকি</h2>
+      <div class="tw">
+        <table id="wt"></table>
+      </div>
+      <h2>ক্রয়ের রেকর্ড</h2>
+      <label style="display:block;margin-bottom:8px">মাস অনুযায়ী দেখুন<input type="month" id="fu"
+          style="max-width:200px"></label>
+      <div class="tw">
+        <table id="ut"></table>
+      </div>
+      <h2>ডিলারকে পরিশোধের রেকর্ড</h2>
+      <div class="tw">
+        <table id="wr"></table>
+      </div>
+    </section>
     <section class="tab" id="e">
       <h2>ব্যবসা উন্নয়নে ব্যয়</h2>
       <form id="ef"><label>তারিখ *<input name="date" type="date" required></label><label>ব্যয়ের বিবরণ *<input
@@ -776,7 +810,7 @@
       <p><button class="b p" id="eb">ব্যাকআপ নামান (JSON)</button> <label class="b" style="display:inline-block">ব্যাকআপ
           ফেরত আনুন<input type="file" id="ib" accept=".json" hidden></label>
         <button class="b" id="es">বিক্রয় রেকর্ড (CSV)</button> <button class="b" id="ec">ব্যয়ের রেকর্ড (CSV)</button>
-        <button class="b" id="ev">বাকি জমার রেকর্ড (CSV)</button> <button class="b" id="ep">পণ্যের তালিকা
+        <button class="b" id="ev">বাকি জমার রেকর্ড (CSV)</button> <button class="b" id="euc">ক্রয়ের রেকর্ড (CSV)</button> <button class="b" id="euw">ডিলার পরিশোধ (CSV)</button> <button class="b" id="ep">পণ্যের তালিকা
           (products.json)</button>
       </p>
       <p class="note">products.json ওয়েবসাইটের পণ্য পেজে ব্যবহারের জন্য: পণ্যের নাম, বিভাগ, ব্র্যান্ড ও একক থাকে (মজুত
@@ -792,7 +826,7 @@
     const BD = "০১২৩৪৫৬৭৮৯", bd = t => String(t ?? "").replace(/[০-৯]/g, d => BD.indexOf(d)).replace(/[\s-]/g, ""), num = v => { const n = parseFloat(String(v ?? "").replace(/[০-৯]/g, d => BD.indexOf(d)).replace(/[,৳\s]/g, "").replace("।", ".")); return isNaN(n) ? 0 : n };
     addEventListener("error", e => { const s = document.getElementById("sy"); if (s) { s.textContent = "⚠️ ত্রুটি: " + e.message; s.style.color = "#ffb4a8" } });
     const bn = n => (+n || 0).toLocaleString("bn-BD", { maximumFractionDigits: 2 }), tk = n => "৳ " + bn(n);
-    let D = { p: [], s: [], pay: [], ex: [] }; try { D = JSON.parse(localStorage.getItem(K)) || D } catch (e) { } D.pay = D.pay || []; D.ex = D.ex || [];
+    let D = { p: [], s: [], pay: [], ex: [], u: [], dp: [] }; try { D = JSON.parse(localStorage.getItem(K)) || D } catch (e) { } D.pay = D.pay || []; D.ex = D.ex || []; D.u = D.u || []; D.dp = D.dp || [];
     const save = () => { try { localStorage.setItem(K, JSON.stringify(D)) } catch (e) { alert("তথ্য সংরক্ষণ করা যায়নি। ব্রাউজারের স্টোরেজ বন্ধ থাকতে পারে।") } render(); queue() };
     const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6), today = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0") };
     const dl = (n, t, m) => { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([t], { type: m })); a.download = n; a.click() };
@@ -803,6 +837,11 @@
       E.forEach(x => { const q = key(x.cust, x.ph); x.prev = B[q] ? B[q].v : 0; x.after = x.prev + (x.k === "s" ? x.total - x.paid : -x.amount); B[q] = { v: x.after, n: x.cust, ph: x.ph } }); return { E, B }
     }
     const dueOf = (n, p) => { const b = led().B[key(n, p)]; return b ? b.v : 0 };
+    function ledD() {
+      const E = D.u.map(x => ({ ...x, k: "u" })).concat(D.dp.map(x => ({ ...x, k: "w" }))).sort((a, b) => a.date.localeCompare(b.date) || (a.t || 0) - (b.t || 0)), B = {};
+      E.forEach(x => { const q = key(x.dealer, x.ph); x.prev = B[q] ? B[q].v : 0; x.after = x.prev + (x.k === "u" ? x.total - x.paid : -x.amount); B[q] = { v: x.after, n: x.dealer, ph: x.ph } }); return { E, B }
+    }
+    const owedTo = (n, p) => { const b = ledD().B[key(n, p)]; return b ? b.v : 0 };
     function fillPh(f) { const n = f.cust.value.trim(); if (!f.ph.value) { const b = Object.values(led().B).find(x => x.n === n && x.ph); if (b) f.ph.value = b.ph } }
     function pend() { const f = $("#sf"), p = D.p.find(p => p.id === f.pid.value), q = num(f.qty.value); if (!p || !(q > 0) || f.price.value.trim() === "") return null; const pr = num(f.price.value); return { pid: p.id, pname: p.name, qty: q, price: pr, total: q * pr } }
     function prevS() {
@@ -834,8 +873,8 @@
     function render() {
       const { E, B } = led(), m = today().slice(0, 7), ms = D.s.filter(x => x.date.startsWith(m)), low = D.p.filter(p => p.stock <= p.min), dues = Object.values(B).filter(x => x.v > 0), f = $("#fm").value, mo = x => !f || x.date.startsWith(f);
       const kp = a => a.map(([l, v, i, c]) => `<div class="k"><i style="background:${c}">${i}</i><div><small>${l}</small><b>${v}</b></div></div>`).join(""), sm = (a, k, fn) => a.filter(fn).reduce((t, x) => t + x[k], 0), inM = x => x.date.startsWith(m), all = () => 1;
-      $("#cd").innerHTML = kp([["মোট বিক্রয়", tk(sm(D.s, "total", inM)), "🛒", "#e3ebf7"], ["নতুন বাকি (এ মাসের বিক্রয়ে)", tk(sm(D.s, "total", inM) - sm(D.s, "paid", inM)), "⏳", "#fdeaea"], ["আদায়কৃত বাকি", tk(sm(D.pay, "amount", inM)), "💰", "#e4f5ec"], ["ব্যবসা উন্নয়নে ব্যয়", tk(sm(D.ex, "amount", inM)), "💸", "#fbf1dc"]]);
-      $("#ca").innerHTML = kp([["মোট বিক্রয়", tk(sm(D.s, "total", all)), "🛒", "#e3ebf7"], ["মোট বর্তমান বাকি", tk(dues.reduce((a, x) => a + x.v, 0)), "⏳", "#fdeaea"], ["মোট আদায়কৃত বাকি", tk(sm(D.pay, "amount", all)), "💰", "#e4f5ec"], ["মোট ব্যয়", tk(sm(D.ex, "amount", all)), "💸", "#fbf1dc"]]);
+      $("#cd").innerHTML = kp([["মোট বিক্রয়", tk(sm(D.s, "total", inM)), "🛒", "#e3ebf7"], ["নতুন বাকি (এ মাসের বিক্রয়ে)", tk(sm(D.s, "total", inM) - sm(D.s, "paid", inM)), "⏳", "#fdeaea"], ["আদায়কৃত বাকি", tk(sm(D.pay, "amount", inM)), "💰", "#e4f5ec"], ["ব্যবসা উন্নয়নে ব্যয়", tk(sm(D.ex, "amount", inM)), "💸", "#fbf1dc"], ["এ মাসে ডিলার থেকে ক্রয়", tk(sm(D.u, "total", inM)), "🚚", "#ece6f7"]]);
+      $("#ca").innerHTML = kp([["মোট বিক্রয়", tk(sm(D.s, "total", all)), "🛒", "#e3ebf7"], ["মোট বর্তমান বাকি", tk(dues.reduce((a, x) => a + x.v, 0)), "⏳", "#fdeaea"], ["মোট আদায়কৃত বাকি", tk(sm(D.pay, "amount", all)), "💰", "#e4f5ec"], ["মোট ব্যয়", tk(sm(D.ex, "amount", all)), "💸", "#fbf1dc"], ["মোট ডিলার ক্রয়", tk(sm(D.u, "total", all)), "🚚", "#ece6f7"], ["ডিলারদের কাছে মোট বাকি", tk(Object.values(ledD().B).filter(x => x.v > 0).reduce((a, x) => a + x.v, 0)), "📒", "#fdeaea"]]);
       $("#lw").innerHTML = "<tr><th>পণ্য</th><th>মজুত</th></tr>" + (low.map(p => `<tr><td>${esc(p.name)}</td><td class="low">${bn(p.stock)} ${esc(p.unit)}</td></tr>`).join("") || "<tr><td colspan=2>কম মজুতের কোনো পণ্য নেই।</td></tr>");
       $("#pt").innerHTML = "<tr><th>নাম</th><th>বিভাগ</th><th>ব্র্যান্ড</th><th>মূল্য</th><th>মজুত</th><th></th></tr>" + (D.p.map(p => `<tr><td>${esc(p.name)}</td><td>${esc(p.cat)}</td><td>${esc(p.brand)}</td><td>${tk(p.price)}/${esc(p.unit)}</td><td class="${p.stock <= p.min ? "low" : ""}">${bn(p.stock)}</td><td><button class="b s" data-e="${p.id}">সম্পাদনা</button> <button class="b s r" data-x="${p.id}">মুছুন</button></td></tr>`).join("") || "<tr><td colspan=6>এখনো কোনো পণ্য যোগ করা হয়নি।</td></tr>");
       const cv = $("#sf [name=pid]").value; $("#sf [name=pid]").innerHTML = '<option value="">নির্বাচন করুন</option>' + D.p.map(p => `<option value="${p.id}">${esc(p.name)} (মজুত ${bn(p.stock)})</option>`).join(""); $("#sf [name=pid]").value = cv;
@@ -847,7 +886,15 @@
       $("#vt").innerHTML = "<tr><th>তারিখ</th><th>ক্রেতা</th><th>জমা</th><th>মন্তব্য</th><th>আগের বাকি</th><th>পরের বাকি</th><th></th></tr>" + (pr.map(x => `<tr><td>${x.date} <small>${esc(x.no || "")}</small></td><td>${esc(x.cust)}</td><td>${tk(x.amount)}</td><td>${esc(x.note)}</td><td>${tk(x.prev)}</td><td>${tk(x.after)}</td><td><button class="b s" data-pr="${x.id}">রসিদ</button> <button class="b s r" data-px="${x.id}">মুছুন</button></td></tr>`).join("") || "<tr><td colspan=7>কোনো জমার রেকর্ড নেই।</td></tr>");
       const xs = D.ex.filter(x => !$("#fe").value || x.date.startsWith($("#fe").value)).sort((a, b) => b.date.localeCompare(a.date) || b.t - a.t);
       $("#et").innerHTML = "<tr><th>ভাউচার</th><th>তারিখ</th><th>বিবরণ</th><th>খাত</th><th>কাকে</th><th>পরিমাণ</th><th></th></tr>" + (xs.map(x => `<tr><td>${esc(x.no || "—")}</td><td>${x.date}</td><td>${esc(x.title)}</td><td>${esc(x.cat)}</td><td>${esc(x.to)}</td><td>${tk(x.amount)}</td><td><button class="b s" data-vo="${x.id}">ভাউচার</button> <button class="b s r" data-xd="${x.id}">মুছুন</button></td></tr>`).join("") || "<tr><td colspan=7>কোনো ব্যয় রেকর্ড নেই।</td></tr>") + (xs.length ? `<tr><th colspan=5>মোট</th><th>${tk(xs.reduce((a, x) => a + x.amount, 0))}</th><th></th></tr>` : "");
-      $("#stat").textContent = "মোট রেকর্ড: " + bn(D.s.length) + " টি বিক্রয়"; prevS(); prevV(); charts(B);
+      const LD = ledD(), ED = LD.E, owe = Object.values(LD.B).filter(x => x.v > 0), fu = $("#fu").value, mu = x => !fu || x.date.startsWith(fu);
+      const uf = $("#uf [name=pid]"), ucv = uf.value; uf.innerHTML = '<option value="">নির্বাচন করুন</option>' + D.p.map(p => `<option value="${p.id}">${esc(p.name)} (মজুত ${bn(p.stock)})</option>`).join(""); uf.value = ucv;
+      $("#dl").innerHTML = Object.values(LD.B).map(x => `<option value="${esc(x.n)}">`).join("");
+      $("#wt").innerHTML = "<tr><th>ডিলার</th><th>মোবাইল</th><th>বাকি</th><th></th></tr>" + (owe.map(x => `<tr><td>${esc(x.n)}</td><td>${esc(x.ph)}</td><td class="low">${tk(x.v)}</td><td><button class="b s g" data-c="${esc(x.n)}" data-h="${esc(x.ph)}" data-a="${x.v}">বাকি পরিশোধ করুন</button></td></tr>`).join("") || "<tr><td colspan=4>কোনো ডিলারের কাছে বাকি নেই।</td></tr>");
+      const ivu = invs(ED.map(x => x.k === "u" ? { ...x, k: "s", cust: x.dealer } : x)).filter(mu);
+      $("#ut").innerHTML = "<tr><th>মেমো</th><th>তারিখ</th><th>ডিলার</th><th>পণ্য</th><th>পূর্বের বাকি</th><th>নতুন মোট</th><th>পরিশোধিত</th><th>মোট বাকি</th><th></th></tr>" + (ivu.map(v => `<tr><td>${esc(v.no || "—")}</td><td>${v.date}</td><td>${esc(v.cust)}</td><td>${esc(v.items.map(i => i.pname + " ×" + bn(i.qty)).join(", "))}</td><td>${tk(v.prev)}</td><td>${tk(v.total)}</td><td>${tk(v.paid)}</td><td class="${v.after > 0 ? "low" : ""}">${tk(v.after)}</td><td><button class="b s" data-uv="${v.inv}">মেমো</button> <button class="b s r" data-ud="${v.inv}">মুছুন</button></td></tr>`).join("") || "<tr><td colspan=9>কোনো ক্রয় রেকর্ড নেই।</td></tr>") + (ivu.length ? `<tr><th colspan=5>মোট</th><th>${tk(ivu.reduce((a, v) => a + v.total, 0))}</th><th>${tk(ivu.reduce((a, v) => a + v.paid, 0))}</th><th colspan=2></th></tr>` : "");
+      const wr = ED.filter(x => x.k === "w" && mu(x)).reverse();
+      $("#wr").innerHTML = "<tr><th>তারিখ</th><th>ডিলার</th><th>পরিশোধ</th><th>মন্তব্য</th><th>আগের বাকি</th><th>পরের বাকি</th><th></th></tr>" + (wr.map(x => `<tr><td>${x.date} <small>${esc(x.no || "")}</small></td><td>${esc(x.dealer)}</td><td>${tk(x.amount)}</td><td>${esc(x.note)}</td><td>${tk(x.prev)}</td><td>${tk(x.after)}</td><td><button class="b s" data-wr="${x.id}">ভাউচার</button> <button class="b s r" data-wx="${x.id}">মুছুন</button></td></tr>`).join("") || "<tr><td colspan=7>কোনো পরিশোধের রেকর্ড নেই।</td></tr>");
+      $("#stat").textContent = "মোট রেকর্ড: " + bn(D.s.length) + " টি বিক্রয়"; prevS(); prevV(); prevU(); prevW(); charts(B);
     }
     $("#pf").onsubmit = e => {
       e.preventDefault(); const f = e.target, o = { name: f.name.value.trim(), cat: f.cat.value, brand: f.brand.value.trim(), unit: f.unit.value.trim() || "একক", price: num(f.price.value), stock: num(f.stock.value), min: num(f.min.value) };
@@ -856,7 +903,7 @@
     };
     $("#pt").onclick = e => {
       const t = e.target, i = t.dataset.e || t.dataset.x; if (!i) return;
-      if (t.dataset.x) { if (D.s.some(s => s.pid === i)) { alert("এই পণ্যের বিক্রয় রেকর্ড আছে, তাই মুছে ফেলা যাবে না।"); return } if (confirm("পণ্যটি মুছে ফেলবেন?")) { D.p = D.p.filter(p => p.id !== i); save() } return }
+      if (t.dataset.x) { if (D.s.some(s => s.pid === i) || D.u.some(s => s.pid === i)) { alert("এই পণ্যের বিক্রয় বা ক্রয়ের রেকর্ড আছে, তাই মুছে ফেলা যাবে না।"); return } if (confirm("পণ্যটি মুছে ফেলবেন?")) { D.p = D.p.filter(p => p.id !== i); save() } return }
       const p = D.p.find(p => p.id === i), f = $("#pf"); Object.keys(p).forEach(k => f[k] && (f[k].value = p[k])); f.id.value = i; $("#pb").textContent = "হালনাগাদ করুন"; scrollTo({ top: 0 })
     };
     $("#sf [name=pid]").onchange = e => { const p = D.p.find(p => p.id === e.target.value); if (p) $("#sf [name=price]").value = p.price; prevS() };
@@ -917,6 +964,69 @@ button{margin:0 0 14px;padding:8px 18px;font:inherit;cursor:pointer}@media print
       const x = D.ex.find(e => e.id === id); if (!x) return;
       doc({ title: "ব্যয় ভাউচার", no: x.no, date: x.date, party: [["কাকে পরিশোধ", x.to], ["মন্তব্য", x.note]], head: ["বিবরণ", "খাত", "পরিমাণ"], rows: [[x.title, x.cat, tk(x.amount)]], sum: [["মোট ব্যয়", x.amount, 1]], sig: ["অনুমোদনকারী", "গ্রহণকারীর স্বাক্ষর"] })
     }
+    // ===== ডিলার ক্রয় =====
+    let CARTU = [];
+    function pendU() { const f = $("#uf"), p = D.p.find(p => p.id === f.pid.value), q = num(f.qty.value); if (!p || !(q > 0) || f.price.value.trim() === "") return null; const pr = num(f.price.value); return { pid: p.id, pname: p.name, qty: q, price: pr, total: q * pr } }
+    function prevU() {
+      const f = $("#uf"), pd = Math.max(owedTo(f.dealer.value, f.ph.value), 0), pe = pendU(), t = CARTU.reduce((a, x) => a + x.total, 0) + (pe ? pe.total : 0), pa = num(f.paid.value);
+      $("#ub").innerHTML = (pe ? `এই আইটেম: ${bn(pe.qty)} × ${tk(pe.price)} = <b>${tk(pe.total)}</b><br>` : "") + `আইটেম মোট <b>${tk(t)}</b> + ডিলারের পূর্বের পাওনা <b>${tk(pd)}</b> = মোট পরিশোধযোগ্য <b>${tk(t + pd)}</b><br>এখন পরিশোধ <b>${tk(pa)}</b> → ডিলারের কাছে বাকি থাকবে <b class="low">${tk(t + pd - pa)}</b>` + (pa > t + pd ? '<br><span class="low">⚠️ পরিশোধ মোটের চেয়ে বেশি</span>' : "")
+    }
+    function prevW() { const f = $("#wf"); $("#wb").innerHTML = `ডিলারের কাছে বর্তমান বাকি: <b class="low">${tk(owedTo(f.dealer.value, f.ph.value.trim()))}</b>` }
+    function drawCartU() {
+      const t = CARTU.reduce((a, x) => a + x.total, 0);
+      $("#ucart").innerHTML = CARTU.length ? `<div class="tw"><table><tr><th>পণ্য</th><th>পরিমাণ</th><th>ক্রয়মূল্য</th><th>মোট</th><th></th></tr>${CARTU.map((x, i) => `<tr><td>${esc(x.pname)}</td><td>${bn(x.qty)}</td><td>${tk(x.price)}</td><td>${tk(x.total)}</td><td><button type="button" class="b s r" data-ci="${i}">বাদ দিন</button></td></tr>`).join("")}<tr><th colspan=3>আইটেম মোট</th><th>${tk(t)}</th><th></th></tr></table></div>` : '<p class="note">পণ্য, পরিমাণ ও ক্রয়মূল্য দিয়ে "আইটেম যোগ করুন" চাপুন। একই ডিলারের কাছ থেকে একাধিক পণ্য যোগ করা যাবে। সংরক্ষণ করলে পণ্যের মজুত বাড়বে।</p>'; prevU()
+    }
+    function addLineU() {
+      const f = $("#uf"), pe = pendU();
+      if (!pe) { alert("পণ্য নির্বাচন করুন এবং পরিমাণ ও ক্রয়মূল্য দিন।"); return false }
+      CARTU.push(pe); f.pid.value = ""; f.qty.value = ""; f.price.value = ""; drawCartU(); return true
+    }
+    $("#ui").onclick = addLineU;
+    ["qty", "price"].forEach(n => $("#uf [name=" + n + "]").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); addLineU() } }));
+    $("#uf [name=pid]").onchange = e => { const pid = e.target.value, l = D.u.filter(x => x.pid === pid).sort((a, b) => b.date.localeCompare(a.date) || b.t - a.t)[0]; if (l) $("#uf [name=price]").value = l.price; prevU() };
+    $("#uf [name=date]").value = today(); $("#wf [name=date]").value = today();
+    $("#ucart").onclick = e => { const i = e.target.dataset.ci; if (i !== undefined) { CARTU.splice(+i, 1); drawCartU() } };
+    ["dealer", "ph", "qty", "price", "paid"].forEach(n => $("#uf [name=" + n + "]").addEventListener("input", prevU)); ["dealer", "ph"].forEach(n => $("#wf [name=" + n + "]").addEventListener("input", prevW));
+    const fillPhD = f => { const n = f.dealer.value.trim(); if (!f.ph.value) { const b = Object.values(ledD().B).find(x => x.n === n && x.ph); if (b) f.ph.value = b.ph } };
+    $("#uf [name=dealer]").onchange = () => { fillPhD($("#uf")); prevU() }; $("#wf [name=dealer]").onchange = () => { fillPhD($("#wf")); prevW() };
+    $("#fu").onchange = render;
+    $("#uf").onsubmit = e => {
+      e.preventDefault(); const f = e.target;
+      const pe = pendU(); if (pe) { if (!addLineU()) return } else if ((f.qty.value.trim() || f.price.value.trim()) && !confirm("চলমান আইটেমের তথ্য অসম্পূর্ণ। এটি বাদ দিয়ে সংরক্ষণ করবেন?")) return;
+      if (!CARTU.length) { alert("কমপক্ষে একটি আইটেম যোগ করুন (পণ্য, পরিমাণ ও ক্রয়মূল্য দিন)।"); return }
+      const ph = f.ph.value.trim(), pd = Math.max(owedTo(f.dealer.value, ph), 0), tt = CARTU.reduce((a, x) => a + x.total, 0), paid = num(f.paid.value);
+      if (paid < 0 || paid > tt + pd) { alert("পরিশোধিত অর্থ মোট পরিশোধযোগ্য (" + tk(tt + pd) + ") এর চেয়ে বেশি হতে পারে না।"); return }
+      const inv = uid(), no = nextNo("PUR", D.u), t = Date.now();
+      CARTU.forEach((x, i) => { const pp = D.p.find(p => p.id === x.pid); if (pp) pp.stock += x.qty; D.u.push({ id: uid(), t: t + i, inv, no, date: f.date.value, dealer: f.dealer.value.trim(), ph, pid: x.pid, pname: x.pname, qty: x.qty, price: x.price, total: x.total, paid: i ? 0 : paid }) });
+      CARTU = []; f.reset(); f.date.value = today(); save(); drawCartU(); purchaseMemo(inv)
+    };
+    function purchaseMemo(k) {
+      const v = invs(ledD().E.map(x => x.k === "u" ? { ...x, k: "s", cust: x.dealer } : x)).find(x => x.inv === k); if (!v) return;
+      doc({ title: "ক্রয় মেমো", no: v.no, date: v.date, party: [["ডিলার", v.cust], ["মোবাইল", v.ph]], head: ["পণ্য", "পরিমাণ", "ক্রয়মূল্য", "মোট"], rows: v.items.map(i => [i.pname, bn(i.qty), tk(i.price), tk(i.total)]), sum: [["আইটেম মোট", v.total], ["পূর্বের বাকি", v.prev], ["মোট পরিশোধযোগ্য", v.prev + v.total], ["এখন পরিশোধ", v.paid], ["ডিলারের কাছে বাকি", v.after, 1]], sig: ["ডিলারের স্বাক্ষর", "গ্রহণকারীর স্বাক্ষর"] })
+    }
+    function dealerVoucher(id) {
+      const x = ledD().E.find(e => e.k === "w" && e.id === id); if (!x) return;
+      doc({ title: "ডিলার পরিশোধ ভাউচার", no: x.no, date: x.date, party: [["ডিলার", x.dealer], ["মোবাইল", x.ph]], head: ["বিবরণ", "মন্তব্য", "পরিশোধ"], rows: [["পূর্বের বাকি পরিশোধ", x.note || "—", tk(x.amount)]], sum: [["আগের বাকি", x.prev], ["এখন পরিশোধ", x.amount], ["বর্তমান বাকি", x.after, 1]], sig: ["প্রদানকারীর স্বাক্ষর", "ডিলারের স্বাক্ষর"] })
+    }
+    $("#wf").onsubmit = e => {
+      e.preventDefault(); const f = e.target, n = f.dealer.value.trim(), ph = f.ph.value.trim(), a = num(f.amount.value), d = owedTo(n, ph);
+      if (!(a > 0)) { alert("পরিশোধের পরিমাণ সঠিকভাবে দিন।"); return }
+      if (d <= 0) { alert("এই ডিলারের কাছে কোনো বাকি নেই। নাম বা মোবাইল নম্বর মিলিয়ে দেখুন।"); return }
+      if (a > d) { alert("পরিশোধের অঙ্ক বাকির (" + tk(d) + ") চেয়ে বেশি হতে পারে না।"); return }
+      const id = uid(); D.dp.push({ id, t: Date.now(), no: nextNo("DPY", D.dp), date: f.date.value, dealer: n, ph, amount: a, note: f.note.value.trim() }); f.reset(); f.date.value = today(); save(); dealerVoucher(id)
+    };
+    $("#wt").onclick = e => { const d = e.target.dataset; if (!d.c) return; const f = $("#wf"); f.dealer.value = d.c; f.ph.value = d.h; f.amount.value = d.a; prevW(); scrollTo({ top: 0 }) };
+    $("#ut").onclick = e => {
+      const d = e.target.dataset; if (d.uv) { purchaseMemo(d.uv); return } const i = d.ud; if (!i) return;
+      const rows = D.u.filter(x => (x.inv || x.id) === i), bad = rows.find(r => { const p = D.p.find(x => x.id === r.pid); return p && p.stock < r.qty });
+      if (bad) { alert("এই ক্রয়ের মাল ইতিমধ্যে বিক্রি হয়েছে, মজুত কম পড়বে। তাই মুছে ফেলা যাবে না: " + bad.pname); return }
+      if (!confirm("ক্রয়ের মেমোটি মুছলে পণ্যের মজুত কমে যাবে। মুছবেন?")) return;
+      rows.forEach(r => { const p = D.p.find(x => x.id === r.pid); if (p) p.stock -= r.qty }); D.u = D.u.filter(x => (x.inv || x.id) !== i); save()
+    };
+    $("#wr").onclick = e => { const d = e.target.dataset; if (d.wr) { dealerVoucher(d.wr); return } if (d.wx && confirm("পরিশোধের রেকর্ডটি মুছলে ডিলারের বাকি আবার বাড়বে। মুছবেন?")) { D.dp = D.dp.filter(x => x.id !== d.wx); save() } };
+    $("#euc").onclick = () => dl("purchases-" + today() + ".csv", csv("মেমো,তারিখ,ডিলার,মোবাইল,পণ্য,পরিমাণ,ক্রয়মূল্য,পূর্বের বাকি,নতুন মোট,পরিশোধিত,মোট বাকি", ledD().E.filter(x => x.k === "u").map(x => [x.no, x.date, x.dealer, x.ph, x.pname, x.qty, x.price, x.prev, x.total, x.paid, x.after])), "text/csv");
+    $("#euw").onclick = () => dl("dealer-payments-" + today() + ".csv", csv("তারিখ,ডিলার,মোবাইল,পরিশোধ,মন্তব্য,আগের বাকি,পরের বাকি", ledD().E.filter(x => x.k === "w").map(x => [x.date, x.dealer, x.ph, x.amount, x.note, x.prev, x.after])), "text/csv");
+    drawCartU();
     $("#ef [name=date]").value = today();
     $("#ef").onsubmit = e => { e.preventDefault(); const f = e.target, id = uid(); if (!(num(f.amount.value) > 0)) { alert("ব্যয়ের পরিমাণ সঠিকভাবে দিন।"); return } D.ex.push({ id, t: Date.now(), no: nextNo("EXP", D.ex), date: f.date.value, title: f.title.value.trim(), cat: f.cat.value, amount: num(f.amount.value), to: f.to.value.trim(), note: f.note.value.trim() }); f.reset(); f.date.value = today(); save(); voucher(id) };
     $("#et").onclick = e => { const d = e.target.dataset; if (d.vo) { voucher(d.vo); return } if (d.xd && confirm("ব্যয়ের রেকর্ডটি মুছবেন?")) { D.ex = D.ex.filter(x => x.id !== d.xd); save() } };
@@ -939,7 +1049,7 @@ button{margin:0 0 14px;padding:8px 18px;font:inherit;cursor:pointer}@media print
     };
     $("#fm").onchange = render;
     $("#eb").onclick = () => dl("saad-backup-" + today() + ".json", JSON.stringify(D, null, 1), "application/json");
-    $("#ib").onchange = e => { const r = new FileReader(); r.onload = () => { try { const j = JSON.parse(r.result); if (!Array.isArray(j.p) || !Array.isArray(j.s)) throw 0; if (confirm("বর্তমান সব তথ্য ব্যাকআপের তথ্য দিয়ে বদলে যাবে। চালিয়ে যাবেন?")) { D = j; D.pay = D.pay || []; D.ex = D.ex || []; save() } } catch (x) { alert("ফাইলটি সঠিক ব্যাকআপ ফাইল নয়।") } }; r.readAsText(e.target.files[0]) };
+    $("#ib").onchange = e => { const r = new FileReader(); r.onload = () => { try { const j = JSON.parse(r.result); if (!Array.isArray(j.p) || !Array.isArray(j.s)) throw 0; if (confirm("বর্তমান সব তথ্য ব্যাকআপের তথ্য দিয়ে বদলে যাবে। চালিয়ে যাবেন?")) { D = j; D.pay = D.pay || []; D.ex = D.ex || []; D.u = D.u || []; D.dp = D.dp || []; save() } } catch (x) { alert("ফাইলটি সঠিক ব্যাকআপ ফাইল নয়।") } }; r.readAsText(e.target.files[0]) };
     const csv = (h, r) => "\uFEFF" + [h].concat(r.map(a => a.map(v => '"' + String(v ?? "").replace(/"/g, '""') + '"').join(","))).join("\n");
     $("#es").onclick = () => dl("sales-" + today() + ".csv", csv("ইনভয়েস,তারিখ,ক্রেতা,মোবাইল,পণ্য,পরিমাণ,একক মূল্য,পূর্বের বাকি,নতুন মোট,পরিশোধিত,মোট বাকি", led().E.filter(x => x.k === "s").map(x => [x.no, x.date, x.cust, x.ph, x.pname, x.qty, x.price, x.prev, x.total, x.paid, x.after])), "text/csv");
     $("#ev").onclick = () => dl("due-payments-" + today() + ".csv", csv("তারিখ,ক্রেতা,মোবাইল,জমা,মন্তব্য,আগের বাকি,পরের বাকি", led().E.filter(x => x.k === "p").map(x => [x.date, x.cust, x.ph, x.amount, x.note, x.prev, x.after])), "text/csv");
@@ -952,8 +1062,8 @@ button{margin:0 0 14px;padding:8px 18px;font:inherit;cursor:pointer}@media print
     async function push(force) {
       if (!SY.url) return; st("⏳ সিঙ্ক হচ্ছে…", "#ffe09a");
       try {
-        const r = await api("", { d: { p: D.p, s: D.s, pay: D.pay, ex: D.ex }, base: SY.ver, force: !!force });
-        if (r.api !== 2) { st("⚠️ Code.gs পুরনো — নতুন Code.gs ডিপ্লয় করুন", "#ffb4a8"); return }
+        const r = await api("", { d: { p: D.p, s: D.s, pay: D.pay, ex: D.ex, u: D.u, dp: D.dp }, base: SY.ver, force: !!force });
+        if (r.api !== 3) { st("⚠️ Code.gs পুরনো — নতুন Code.gs ডিপ্লয় করুন", "#ffb4a8"); return }
         if (r.conflict) { if (confirm("অন্য ডিভাইসে নতুন তথ্য সংরক্ষিত হয়েছে।\n\nOK = গুগল শিটের তথ্য নিন (আপনার অসিঙ্ক পরিবর্তন বাদ যাবে)\nCancel = আপনার তথ্য দিয়ে শিট বদলান")) return pull(); return push(true) }
         if (!r.ok) throw 0; SY.ver = r.v; SY.dirty = false; sSave(); st("✅ গুগল শিটে সংরক্ষিত", "#8ee0b0")
       } catch (e) { st("⚠️ সিঙ্ক ব্যর্থ — তথ্য এই ডিভাইসে আছে", "#ffb4a8") }
@@ -961,18 +1071,18 @@ button{margin:0 0 14px;padding:8px 18px;font:inherit;cursor:pointer}@media print
     async function pull() {
       if (!SY.url) return; st("⏳ শিট থেকে আনা হচ্ছে…", "#ffe09a");
       try {
-        const r = await api("action=get"); if (!r.ok) throw 0; if (r.api !== 2) { st("⚠️ Code.gs পুরনো — নতুন Code.gs ডিপ্লয় করুন", "#ffb4a8"); return } const fx = (a, n) => (a || []).map(o => { n.forEach(k => o[k] = +o[k] || 0);["id", "name", "cat", "brand", "unit", "date", "cust", "ph", "pid", "pname", "note", "inv", "no", "title", "to"].forEach(k => { if (k in o) o[k] = String(o[k]) }); return o });
-        D = { p: fx(r.d.p, ["price", "stock", "min"]), s: fx(r.d.s, ["t", "qty", "price", "total", "paid"]), pay: fx(r.d.pay, ["t", "amount"]), ex: fx(r.d.ex, ["t", "amount"]) };
+        const r = await api("action=get"); if (!r.ok) throw 0; if (r.api !== 3) { st("⚠️ Code.gs পুরনো — নতুন Code.gs ডিপ্লয় করুন", "#ffb4a8"); return } const fx = (a, n) => (a || []).map(o => { n.forEach(k => o[k] = +o[k] || 0);["id", "name", "cat", "brand", "unit", "date", "cust", "ph", "pid", "pname", "note", "inv", "no", "title", "to", "dealer"].forEach(k => { if (k in o) o[k] = String(o[k]) }); return o });
+        D = { p: fx(r.d.p, ["price", "stock", "min"]), s: fx(r.d.s, ["t", "qty", "price", "total", "paid"]), pay: fx(r.d.pay, ["t", "amount"]), ex: fx(r.d.ex, ["t", "amount"]), u: fx(r.d.u, ["t", "qty", "price", "total", "paid"]), dp: fx(r.d.dp, ["t", "amount"]) };
         try { localStorage.setItem(K, JSON.stringify(D)) } catch (e) { } SY.ver = r.v; SY.dirty = false; sSave(); render(); st("✅ গুগল শিট থেকে হালনাগাদ", "#8ee0b0")
       } catch (e) { st("⚠️ শিট থেকে আনা যায়নি", "#ffb4a8") }
     }
-    async function boot() { if (!SY.url) return; try { const r = await api("action=ver"); if (!r.ok) throw 0; if (r.api !== 2) { st("⚠️ Code.gs পুরনো — নতুন Code.gs ডিপ্লয় করুন", "#ffb4a8"); return } if (r.v !== SY.ver) { SY.dirty ? await push() : await pull() } else if (SY.dirty) await push(); else st("✅ গুগল শিটের সঙ্গে সংযুক্ত", "#8ee0b0") } catch (e) { st("⚠️ অফলাইন — তথ্য এই ডিভাইসে", "#ffb4a8") } }
+    async function boot() { if (!SY.url) return; try { const r = await api("action=ver"); if (!r.ok) throw 0; if (r.api !== 3) { st("⚠️ Code.gs পুরনো — নতুন Code.gs ডিপ্লয় করুন", "#ffb4a8"); return } if (r.v !== SY.ver) { SY.dirty ? await push() : await pull() } else if (SY.dirty) await push(); else st("✅ গুগল শিটের সঙ্গে সংযুক্ত", "#8ee0b0") } catch (e) { st("⚠️ অফলাইন — তথ্য এই ডিভাইসে", "#ffb4a8") } }
     const gf = $("#gf"); gf.url.value = SY.url; gf.token.value = SY.token;
     gf.onsubmit = async e => {
       e.preventDefault(); SY.url = gf.url.value.trim(); SY.token = gf.token.value.trim(); if (!SY.url || !SY.token) { alert("URL ও গোপন কোড দুটোই দিন।"); return }
       try {
-        const r = await api("action=ver"); if (!r.ok) throw 0; if (r.api !== 2) { alert("গুগল শিটের Code.gs পুরনো। নতুন Code.gs পেস্ট করে Deploy → Manage deployments → New version দিন।"); SY.url = ""; SY.token = ""; sSave(); return } SY.ver = r.v; SY.dirty = false; sSave();
-        const empty = !D.p.length && !D.s.length && !D.pay.length;
+        const r = await api("action=ver"); if (!r.ok) throw 0; if (r.api !== 3) { alert("গুগল শিটের Code.gs পুরনো। নতুন Code.gs পেস্ট করে Deploy → Manage deployments → New version দিন।"); SY.url = ""; SY.token = ""; sSave(); return } SY.ver = r.v; SY.dirty = false; sSave();
+        const empty = !D.p.length && !D.s.length && !D.pay.length && !D.u.length && !D.dp.length;
         if (r.v === 0) await push(true); else if (empty) await pull(); else if (confirm("শিটে আগের তথ্য আছে।\n\nOK = শিটের তথ্য নিন (এই ডিভাইসের তথ্য বদলে যাবে)\nCancel = এই ডিভাইসের তথ্য দিয়ে শিট বদলান")) await pull(); else await push(true);
         alert("সংযোগ সফল হয়েছে।")
       } catch (x) { SY.url = ""; SY.token = ""; sSave(); alert("সংযোগ করা যায়নি। URL, গোপন কোড এবং ডিপ্লয়ের অ্যাক্সেস (Anyone) মিলিয়ে দেখুন।") }

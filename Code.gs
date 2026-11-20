@@ -4,11 +4,13 @@ const COLS = {
   p: ['id','name','cat','brand','unit','price','stock','min'],
   s: ['id','t','inv','no','date','cust','ph','pid','pname','qty','price','total','paid'],
   pay: ['id','t','no','date','cust','ph','amount','note'],
-  ex: ['id','t','no','date','title','cat','amount','to','note']
+  ex: ['id','t','no','date','title','cat','amount','to','note'],
+  u: ['id','t','inv','no','date','dealer','ph','pid','pname','qty','price','total','paid'],
+  dp: ['id','t','no','date','dealer','ph','amount','note']
 };
-const NAMES = {p:'পণ্য', s:'বিক্রয়', pay:'বাকি জমা', ex:'ব্যয়'};
-const TEXT = ['id','name','cat','brand','unit','date','cust','ph','pid','pname','note','inv','no','title','to'];
-const out = o => ContentService.createTextOutput(JSON.stringify(Object.assign({api:2},o))).setMimeType(ContentService.MimeType.JSON);
+const NAMES = {p:'পণ্য', s:'বিক্রয়', pay:'বাকি জমা', ex:'ব্যয়', u:'ডিলার ক্রয়', dp:'ডিলার পরিশোধ'};
+const TEXT = ['id','name','cat','brand','unit','date','cust','ph','pid','pname','note','inv','no','title','to','dealer'];
+const out = o => ContentService.createTextOutput(JSON.stringify(Object.assign({api:3},o))).setMimeType(ContentService.MimeType.JSON);
 const ver = () => Number(PropertiesService.getScriptProperties().getProperty('v')) || 0;
 function sheet(k){
   const ss = SpreadsheetApp.getActive();
